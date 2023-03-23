@@ -6,7 +6,7 @@
 #    By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 16:53:33 by wricky-t          #+#    #+#              #
-#    Updated: 2023/03/22 20:42:49 by wricky-t         ###   ########.fr        #
+#    Updated: 2023/03/23 15:13:06 by wricky-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,5 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
-
-log: $(NAME)
-	./$(NAME) > globalbanksters.log
 
 .PHONY: all clean fclean re
