@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:13:23 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/03/23 20:39:56 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/03/23 20:44:46 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,13 @@ int main()
     // Notice that the address of str and stringREF still the same but value different
     std::cout << " ====== MEMORY ADDRESSES ======\n"
               << std::setw(15) << "str: " << &str << "\n"
+              << std::setw(15) << "newStr: " << &newStr << "\n"
               << std::setw(15) << "stringPTR: " << stringPTR << "\n"
               << std::setw(15) << "stringREF: " << &stringREF << "\n";
     // Print value
     std::cout << " =========== VALUES ===========\n"
               << std::setw(15) << "str: " << str << "\n"
+              << std::setw(15) << "newStr: " << newStr << "\n"
               << std::setw(15) << "stringPTR: " << *stringPTR << "\n"
               << std::setw(15) << "stringREF: " << stringREF << "\n";
 
