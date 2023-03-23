@@ -6,13 +6,13 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:44:01 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/03/23 14:02:58 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/03/23 14:41:54 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-Zombie  *Zombie::newZombie(std::string name) {
+Zombie  *newZombie(std::string name) {
 
     Zombie  *newZombie = new Zombie();
 
