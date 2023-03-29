@@ -6,7 +6,7 @@
 #    By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 16:53:33 by wricky-t          #+#    #+#              #
-#    Updated: 2023/03/25 21:57:51 by wricky-t         ###   ########.fr        #
+#    Updated: 2023/03/27 11:12:55 by wricky-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		:= OCF
 CXX			:= c++
 CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98 -MMD
 
-ifeq ($(DB), 1)
+ifeq ($(DEBUG), 1)
 	CXXFLAGS += -fsanitize=address -g3
 endif
 
@@ -26,14 +26,13 @@ OBJS		:= $(SRCS:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
 DEPS		:= $(OBJS:.o=.d)
 INC			:= -I$(INC_DIR)
 RM			:= rm -rf
-DB			?= 0
 
 BL			:= \033[1;34m
 DF			:= \033[0m
 
 all: $(NAME)
 
-ifeq ($(DB), 1)
+ifeq ($(DEBUG), 1)
 	@echo "$(BL)DEBUG MODE$(DF)"
 endif
 
@@ -54,4 +53,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re env
+.PHONY: all clean fclean re env debug

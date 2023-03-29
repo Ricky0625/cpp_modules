@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:32:58 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/03/25 21:08:32 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:28:42 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ class Fixed
 {
     public:
         Fixed( void );
-        Fixed( int a, int b );
         Fixed( const Fixed& fixed );
         Fixed &operator=(const Fixed& fixed);
         ~Fixed( void );
