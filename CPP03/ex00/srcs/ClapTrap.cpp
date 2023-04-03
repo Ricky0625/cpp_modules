@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:45:15 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/04/03 13:45:09 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:38:51 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,10 @@ void	ClapTrap::showStatus(void) {
 	if (nameLength > 10)
 		displayName = this->_name.substr(0, 10) += ".";
 	std::cout << std::setw(22) << "+-------------+" << "\n"
-	          << " [@@] " << " | " << std::setw(11) << displayName << " |" << "\n"
+	          << " [<>] " << " | " << std::setw(11) << displayName << " |" << "\n"
 	          << "/|CT|\\" << " | " << "HP: " << std::setw(7) << this->_hitPoints << " |" << "\n"
-	          << " d  b " << " | " << "EP: " << std::setw(7) << this->_energyPoints << " |" << "\n"
+	          << " |  | " << " | " << "EP: " << std::setw(7) << this->_energyPoints << " |" << "\n"
+	          << "  ()  " << " | " << "AD: " << std::setw(7) << this->_attackDamage << " |" << "\n"
 			  << std::setw(22) << "+-------------+" << std::endl;
 }
 
