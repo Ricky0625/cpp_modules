@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:26:43 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/03/31 16:22:21 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:49:08 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int main(void) {
 
 		joe.showStatus();
 		joe.takeDamage(10);
+		joe.showStatus();
 		joe.attack("MAMA");
 		joe.beRepaired(100);
 	}
@@ -35,6 +36,7 @@ int main(void) {
 		joe.showStatus();
 		while (++i < 10)
 			joe.beRepaired(0);
+		joe.showStatus();
 		joe.attack("MAMA");
 	}
 	{
@@ -46,11 +48,19 @@ int main(void) {
 		mama.showStatus();
 		joe.attack("MAMA");
 		mama.takeDamage(joe.getAttackDamage());
+		joe.showStatus();
+		mama.showStatus();
 		mama.attack("JOE");
 		joe.takeDamage(mama.getAttackDamage());
+		joe.showStatus();
+		mama.showStatus();
 		joe.attack("MAMA");
 		mama.takeDamage(joe.getAttackDamage());
+		joe.showStatus();
+		mama.showStatus();
 		mama.attack("JOE");
 		joe.takeDamage(mama.getAttackDamage());
+		joe.showStatus();
+		mama.showStatus();
 	}
 }

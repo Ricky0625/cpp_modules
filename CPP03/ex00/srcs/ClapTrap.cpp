@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:45:15 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/03/31 15:01:07 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:45:09 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	ClapTrap::attack(const std::string& target) {
 		return ;
 	this->setEnergyPoints(--this->_energyPoints);
 	std::cout << "ClapTrap [" << getName() << "]: Zappp! I just hit [" << target << "] for " << getAttackDamage() << " points!" << std::endl;
-	this->showStatus();
 }
 
 void	ClapTrap::takeDamage(unsigned int amount) {
@@ -108,7 +107,6 @@ void	ClapTrap::takeDamage(unsigned int amount) {
 		hitPoints -= amount;
 	this->setHitPoints(hitPoints);
 	std::cout << "ClapTrap [" << getName() << "]: I'm hit! I'm hit! Damage report: " << amount << " points. Time to return fire!" << std::endl;
-	this->showStatus();
 }
 
 void	ClapTrap::beRepaired(unsigned int amount) {
@@ -120,7 +118,6 @@ void	ClapTrap::beRepaired(unsigned int amount) {
 	this->setEnergyPoints(--energyPoints);
 	this->setHitPoints(this->getHitPoints() + amount);
 	std::cout << "ClapTrap [" << getName() << "]: Wohoo! I feel alive again! Recovered " << amount << " hit points!" << std::endl;
-	this->showStatus();
 }
 
 std::string	ClapTrap::getName(void) const {
