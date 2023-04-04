@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:38:36 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/04/03 15:22:06 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:24:03 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ class FragTrap : public ClapTrap
 		FragTrap		&operator=(const FragTrap &other);
 
 		void			highFivesGuys( void );
-
-		void			showStatus( void );
 };
 
 #endif
