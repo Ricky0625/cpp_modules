@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 13:26:56 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/04/04 11:14:39 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:15:41 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ enum	e_check {
 
 enum	e_trap {
 	CLAPTRAP,
-	FRAGTRAP,
 	SCAVTRAP,
+	FRAGTRAP,
 	DIAMONDTRAP
 };
 
