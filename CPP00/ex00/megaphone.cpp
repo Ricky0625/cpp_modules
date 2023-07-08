@@ -6,12 +6,17 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 11:19:58 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/03/21 11:19:59 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/07/05 18:32:16 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 
+/**
+ * @brief Print each character to the terminal in uppercase.
+ * 
+ * @param str The string to be printed.
+*/
 void megaphone(char *str)
 {
     int i = -1;
@@ -36,6 +41,16 @@ void megaphone(char *str)
  * becomes full or when the stream is closed.
 */
 
+/**
+ * @brief The main function.
+ * 
+ * @param ac The number of arguments.
+ * @param av The array of arguments.
+ * 
+ * @details
+ * If the argument count is 1, print default message.
+ * Otherwiser, iterate through the arguments and call megaphone on each of them.
+*/
 int main(int ac, char **av) {
 
     int i = 0;
@@ -47,4 +62,5 @@ int main(int ac, char **av) {
             megaphone(av[i]);
         std::cout << "\n";
     }
+	return (0);
 }
