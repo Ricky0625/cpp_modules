@@ -13,10 +13,18 @@
 #include "PhoneBook.hpp"
 
 /**
- * 1. Need an infinite loop that ask for user's prompt.
- * 2. The prompt should be all UPPERCASE only.
+ * @brief PhoneBook
+ * 
+ * @details
+ * 1. Get user input, expect one of the following commands:
+ *  - ADD: Add new contact.
+ *  - SEARCH: Look up a contact.
+ *  - EXIT: Exit PhoneBook.
+ * 2. If the command is ADD, call addContact() method.
+ * 3. If the command is SEARCH, call searchContact() method.
+ * 4. If the command is EXIT, destructor will be called and exit the program.
+ * 5. If the command is invalid, show error message and showCmds().
 */
-
 int main(void)
 {
     PhoneBook   phonebook;
@@ -27,14 +35,14 @@ int main(void)
         std::cout << BCYAN << "PhoneBook > " << DEF;
         std::getline(std::cin, prompt);
         if (prompt == "ADD")
-            phonebook.add_contact();
+            phonebook.addContact();
         else if (prompt == "SEARCH")
-            phonebook.search_contact();
+            phonebook.searchContact();
         else if (prompt == "EXIT" || std::cin.eof())
             break ;
         else {
             std::cout << "\t" << (prompt.empty() ? "EMPTY COMMAND!" : "INVALID COMMAND!");
-            phonebook.show_cmds();
+            phonebook.showCmds();
         }
     }
     return 0;

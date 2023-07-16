@@ -24,16 +24,23 @@ class PhoneBook {
     public:
         PhoneBook();
         ~PhoneBook();
-        int     get_index(void);
-        int     get_total(void);
-        void    show_cmds(void);
-        void    add_contact(void);
-        void    search_contact(void);
-        void    exit_phonebook(void);
-        void    list_contacts(void);
+        /**
+         * @brief Getters
+         * @attention
+         * The const keyword after the function declaration means that the function
+         * is not allowed to modify the object for which it is called.
+        */
+        int     getIndex() const;
+        int     getTotal() const;
+        // helpers
+        void    showCmds();
+        void    addContact();
+        void    searchContact();
+        void    exitPhonebook();
+        void    listContacts();
     private:
-        int     index;
-        int     total;
+        int     _index;
+        int     _total;
         Contact contacts[MAX_CONTACTS];
 };
 

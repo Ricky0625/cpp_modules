@@ -16,6 +16,7 @@
 # include <iostream>
 # include <string>
 # include <iomanip>
+# include <cstdlib>
 
 using std::left; // left align output
 using std::setw; // set padding for output
@@ -24,25 +25,28 @@ class Contact {
     public:
         Contact();
         ~Contact();
-        std::string get_firstname(void);
-        std::string get_lastname(void);
-        std::string get_nickname(void);
-        std::string get_phone(void);
-        std::string get_secret(void);
-        void        set_firstname(std::string firstname);
-        void        set_lastname(std::string lastname);
-        void        set_nickname(std::string nickname);
-        void        set_phone(std::string phone);
-        void        set_secret(std::string secret);
-        void        print_contact_as_table(int index);
-        void        print_contact();
-        int         is_empty(void);
+        // getters
+        std::string getFirstname() const;
+        std::string getLastname() const;
+        std::string getNickname() const;
+        std::string getPhone() const;
+        std::string getSecret() const;
+        // setters
+        void        setFirstname(const std::string firstname);
+        void        setLastname(const std::string lastname);
+        void        setNickname(const std::string nickname);
+        void        setPhone(const std::string phone);
+        void        setSecret(const std::string secret);
+        // helpers
+        void        printContactAsTable(int index);
+        void        printContact();
+        int         isEmpty();
     private:
-        std::string firstname;
-        std::string lastname;
-        std::string nickname;
-        std::string phone;
-        std::string secret;
+        std::string _firstname;
+        std::string _lastname;
+        std::string _nickname;
+        std::string _phone;
+        std::string _secret;
 };
 
 #endif

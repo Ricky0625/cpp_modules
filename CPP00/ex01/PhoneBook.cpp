@@ -12,31 +12,34 @@
 
 #include "PhoneBook.hpp"
 
-PhoneBook::PhoneBook(void) {
-    this->index = 0;
-    this->total = 0;
-}
+// PhoneBook constructor. Initializes attributes using initializer list.
+PhoneBook::PhoneBook() : _index(0), _total(0) {}
 
-PhoneBook::~PhoneBook(void) {
+// PhoneBook destructor.
+PhoneBook::~PhoneBook() {
     std::cout << "\nBye bye~ Thanks for using PhoneBook.\n";
 }
 
-int PhoneBook::get_index(void) {
-    return this->index;
+// Getters: Get index number
+int PhoneBook::getIndex() const {
+    return _index;
 }
 
-int PhoneBook::get_total(void) {
-    return this->total;
+// Getters: Get total number of contacts
+int PhoneBook::getTotal() const {
+    return _total;
 }
 
-void   PhoneBook::show_cmds(void) {
+// Helper: Show all the available commands for PhoneBook
+void   PhoneBook::showCmds() {
     std::cout << "\n\tHere are the list of commands (case-sensitive):\n";
     std::cout << left << setw(7) << "\tADD" << "| Add new contact.\n";
     std::cout << left << setw(7) << "\tSEARCH" << "| Look up a contact.\n";
     std::cout << left << setw(7) << "\tEXIT" << "| Exit PhoneBook.\n";
 }
 
-static std::string replace_tabs(std::string str, int spacesPerTab)
+// Helper: Replace tabs to spaces
+static std::string replaceTabs(const std::string str, int spacesPerTab)
 {
     std::string newStr;
 
@@ -52,11 +55,22 @@ static std::string replace_tabs(std::string str, int spacesPerTab)
     return newStr;
 }
 
-std::string get_input(std::string prompt) {
+/**
+ * @brief Get user input
+ * 
+ * @details
+ * 1. Get user input using std::getline().
+ * 2. If the input is empty, continue to get user input.
+ * 3. If the input is not empty, replace tabs to spaces and return the input.
+ * 
+ * @attention
+ * If the tabs are not replaced, the table will be broken.
+*/
+std::string getInput(std::string prompt) {
 
     std::string input;
 
-    while (1)
+    while (true)
     {
         std::cout << prompt << ": ";
         std::getline(std::cin, input);
@@ -64,35 +78,46 @@ std::string get_input(std::string prompt) {
             std::cout << "\n[ERROR]: INTERRUPTED!\n";
             std::exit(EXIT_FAILURE);
         }
-        else if (input.empty() == 1) {
+        else if (input.empty() == true) {
             continue ;
         }
         else
             break ;
     }
-    input = replace_tabs(input, 4);
+    input = replaceTabs(input, 4);
     return input;
 }
 
-void    PhoneBook::add_contact() {
+/**
+ * @brief Add contact
+ * 
+ * @details
+ * 1. Since the _index will be incremented after adding a contact, check if the
+ *    _index is equal to MAX_CONTACTS. If it is, reset the _index to 0. This will
+ *    overwrite the oldest contact.
+ * 2. Get user input for each attribute of the contact.
+ * 3. Only when the contact list is not full, increment the _total.
+*/
+void    PhoneBook::addContact() {
 
-    int index = get_index();
+    int currentIndex = getIndex();
 
-    if (index == MAX_CONTACTS) {
-        this->index = 0;
-        index = 0;
+    if (currentIndex == MAX_CONTACTS) {
+        _index = 0;
+        currentIndex = 0;
     }
-    contacts[index].set_firstname(get_input("First name"));
-    contacts[index].set_lastname(get_input("Last name"));
-    contacts[index].set_nickname(get_input("Nickname"));
-    contacts[index].set_phone(get_input("Phone Number"));
-    contacts[index].set_secret(get_input("Darkest secret"));
-    this->index++;
-    if (get_total() < 8)
-        this->total++;
+    contacts[currentIndex].setFirstname(getInput("First name"));
+    contacts[currentIndex].setLastname(getInput("Last name"));
+    contacts[currentIndex].setNickname(getInput("Nickname"));
+    contacts[currentIndex].setPhone(getInput("Phone Number"));
+    contacts[currentIndex].setSecret(getInput("Darkest secret"));
+    _index++;
+    if (getTotal() < 8)
+        _total++;
 }
 
-static void print_table_border(void)
+// Helper: Print table border
+static void printTableBorder(void)
 {
     int i = -1;
 
@@ -101,7 +126,8 @@ static void print_table_border(void)
     std::cout << "+\n";
 }
 
-static void    print_table_header(void)
+// Helper: Print table header
+static void    printTableHeader(void)
 {
     std::cout << "|";
     std::cout << setw(10) << "INDEX" << "|";
@@ -110,35 +136,45 @@ static void    print_table_header(void)
     std::cout << setw(10) << "N.NAME" << "|\n";
 }
 
-void    PhoneBook::list_contacts()
+// List the contacts in a table
+void    PhoneBook::listContacts()
 {
     int index = -1;
-    int total = get_total();
+    int total = getTotal();
 
     std::cout << "\nCONTACTS:\n";
-    print_table_border();
-    print_table_header();
+    printTableBorder();
+    printTableHeader();
     while (++index < total)
     {
-        print_table_border();
-        contacts[index].print_contact_as_table(index);
+        printTableBorder();
+        contacts[index].printContactAsTable(index);
     }
-    print_table_border();
+    printTableBorder();
     std::cout << setw(40) << "total: " << index << "/8\n";
 }
 
-void    PhoneBook::search_contact() {
+/**
+ * @brief Search contact
+ * 
+ * @details
+ * 1. If the contact list is empty, show error message and return.
+ * 2. Show all the contacts in a table if the contact list is not empty.
+ * 3. Get user input, expect a valid index number.
+ *    If it's valid, print the contact. Else, show error message.
+*/
+void    PhoneBook::searchContact() {
 
     std::string index;
 
-    if (contacts[0].is_empty() == 1) {
+    if (contacts[0].isEmpty() == 1) {
         std::cout << "The contact list is empty!\n";
         return ;
     }
-    list_contacts();
-    index = get_input("Entry's index");
-    if (index.length() == 1 && isdigit(index[0]) && index[0] - '0' < MAX_CONTACTS)
-        contacts[index[0] - '0'].print_contact();
+    listContacts();
+    index = getInput("Entry's index");
+    if (index.length() == 1 && isdigit(index[0]) && index[0] - '0' < getTotal())
+        contacts[index[0] - '0'].printContact();
     else
         std::cout << "[ERROR]: INVALID INDEX NUMBER\n";
 }

@@ -12,50 +12,64 @@
 
 #include "Contact.hpp"
 
+// Constructor
 Contact::Contact() {}
 
+// Destructor
 Contact::~Contact() {}
 
-std::string Contact::get_firstname() {
-    return this->firstname;
+// Getter: Get first name
+std::string Contact::getFirstname() const {
+    return _firstname;
 }
 
-std::string Contact::get_lastname() {
-    return this->lastname;
+// Getter: Get last name
+std::string Contact::getLastname() const {
+    return _lastname;
 }
 
-std::string Contact::get_nickname() {
-    return this->nickname;
+// Getter: Get nickname
+std::string Contact::getNickname() const {
+    return _nickname;
 }
 
-std::string Contact::get_phone() {
-    return this->phone;
+// Getter: Get phone number
+std::string Contact::getPhone() const {
+    return _phone;
 }
 
-std::string Contact::get_secret() {
-    return this->secret;
+// Getter: Get darkest secret
+std::string Contact::getSecret() const {
+    return _secret;
 }
 
-void    Contact::set_firstname(std::string firstname) {
-    this->firstname = firstname;
+// Setter: Set first name
+void    Contact::setFirstname(const std::string firstname) {
+    _firstname = firstname;
 }
 
-void    Contact::set_lastname(std::string lastname) {
-    this->lastname = lastname;
+// Setter: Set last name
+void    Contact::setLastname(const std::string lastname) {
+    _lastname = lastname;
 }
 
-void    Contact::set_nickname(std::string nickname) {
-    this->nickname = nickname;
+// Setter: Set nickname
+void    Contact::setNickname(const std::string nickname) {
+    _nickname = nickname;
 }
 
-void    Contact::set_phone(std::string phone) {
-    this->phone = phone;
+// Setter: Set phone number
+void    Contact::setPhone(const std::string phone) {
+    _phone = phone;
 }
 
-void    Contact::set_secret(std::string secret) {
-    this->secret = secret;
+// Setter: Set darkest secret
+void    Contact::setSecret(const std::string secret) {
+    _secret = secret;
 }
 
+// Helper: Truncate string to 10 characters.
+// If the string is longer than 10 characters, replace the last character with a dot.
 static std::string truncate_str(std::string str)
 {
     if (str.length() < 10)
@@ -63,23 +77,25 @@ static std::string truncate_str(std::string str)
     return str.substr(0, 10 - 1) += ".";
 }
 
-void    Contact::print_contact_as_table(int index)
+// Helper: Print contact object as a table
+void    Contact::printContactAsTable(int index)
 {
     std::cout << "|";
     std::cout << setw(10) << index << "|";
-    std::cout << setw(10) << truncate_str(this->firstname) << "|";
-    std::cout << setw(10) << truncate_str(this->lastname) << "|";
-    std::cout << setw(10) << truncate_str(this->nickname) << "|\n";
+    std::cout << setw(10) << truncate_str(_firstname) << "|";
+    std::cout << setw(10) << truncate_str(_lastname) << "|";
+    std::cout << setw(10) << truncate_str(_nickname) << "|\n";
 }
 
-void    Contact::print_contact()
+// Helper: Print contact object as a list
+void    Contact::printContact()
 {
     std::cout << "\n";
-    std::cout << setw(20) << "First name: " << this->firstname << "\n";
-    std::cout << setw(20) << "Last name: " << this->lastname << "\n";
-    std::cout << setw(20) << "Nickname: " << this->nickname << "\n";
-    std::cout << setw(20) << "Phone number: " << this->phone << "\n";
-    std::cout << setw(20) << "Darkest secret: " << this->secret << "\n\n";
+    std::cout << setw(20) << "First name: " << _firstname << "\n";
+    std::cout << setw(20) << "Last name: " << _lastname << "\n";
+    std::cout << setw(20) << "Nickname: " << _nickname << "\n";
+    std::cout << setw(20) << "Phone number: " << _phone << "\n";
+    std::cout << setw(20) << "Darkest secret: " << _secret << "\n\n";
 }
 
 /**
@@ -87,6 +103,6 @@ void    Contact::print_contact()
  * Based on this, check if the firstname field is empty.
  * If it's empty, meaning the contact is completely empty.
 */
-int Contact::is_empty() {
-    return (this->firstname.empty());
+int Contact::isEmpty() {
+    return (_firstname.empty());
 }
