@@ -11,6 +11,24 @@ CPP00 is the first project of the C++ branch at 42. We will first be introduced 
 7. `const`
 8. ... and some other basic stuff
 
+## Table of Contents
+
+- [CPP00](#cpp00)
+  - [Table of Contents](#table-of-contents)
+  - [Mandatory topics](#mandatory-topics)
+    - [Namespaces](#namespaces)
+    - [Classes](#classes)
+    - [Member functions](#member-functions)
+    - [`stdio` streams](#stdio-streams)
+    - [Initialization lists](#initialization-lists)
+    - [`static`](#static)
+    - [`const`](#const)
+    - [Constructors](#constructors)
+    - [Destructors](#destructors)
+  - [ex00: Megaphone](#ex00-megaphone)
+  - [ex01: My Awesome Phonebook](#ex01-my-awesome-phonebook)
+    - [Usage](#usage)
+
 ## Mandatory topics
 
 ### Namespaces
@@ -64,7 +82,7 @@ In this way, you import only the necessary names into the current scope, reducin
 
 A class is like a blueprint that defines the structure for objects, which are instances of the class. It defines a set of attributes/states (data members) and behaviors (member functions) that an object of that class can have. Classes are the foundation of object-oriented programming (OOP).
 
-Let's say you have a Cat class. We know that every cat has a lot of standard attributes: name, sex, age, weight, color, favourite food, etc. These are the attributes of the clase. All cats also behave similarly, they breathe, eat, run, sleep and meow. These are the class's behaviours. The attributes and the behaviours of a class are called members of the class.
+Let's say you have a Cat class. We know that every cat has a lot of standard attributes: name, sex, age, weight, color, favourite food, etc. These are the attributes of the class. All cats also behave similarly, they breathe, eat, run, sleep and meow. These are the class's behaviours. The attributes and the behaviours of a class are called members of the class.
 
 With this class, you can create instances to represent different cats. Each instance has its own values for the attributes, completely independent from the other instances.
 
@@ -190,13 +208,15 @@ Here are the main uses of the `const` keyword in C++:
     const int MAX_VALUE = 100;
     ```
 
-2. **Const Function Parameters**: Using `const` with function parameters allows you to specify that the function does not modify the parameter's value. This is useful when you want to ensuer that a function does not accidentatlly modify its input.
+2. **Const Function Parameters**: Using `const` with function parameters allows you to specify that the function does not modify the parameter's value. This is useful when you want to ensure that a function does not accidentatlly modify its input.
 
     ```cpp
     void print(const std::string& text) {
         std::cout << text << std::endl;
     }
     ```
+
+> `const std::string& text` & `std::string const& text` are the same thing. The `const` keyword can be placed either before or after the type.
 
 3. **Const Member Functions**: Member functions can also be declared as `const`, indicating that they do not modify the state of the object on which they are called. Declaring a member function as `const` allows it to be called on both `const` and `non-const` objects of `MyClass`.
 
@@ -211,7 +231,65 @@ Here are the main uses of the `const` keyword in C++:
             int value;
     }
     ```
+### Constructors
 
-## ex00
+Constructors are special member functions in C++ that are associated with the creation of objects of a class.
 
-There's no much to say about this exercise. It's just me trying to get used to the syntax of C++. Also, trying to create solutions that are more CPP-like (lol).
+Characteristics of constructors:
+
+- Initialize the objects of a class. They have the same name as the class and are declared within the class definition.
+- Automatically called when an object is created. Ensure that the object is initialized before it is used.
+- Can have parameters, allowing you to pass arguments during object creation to set the initial values of member variables.
+- Can be overloaded, meaning can have multiple constructors with different parameters in a class.
+- If no constructor is defined in a class, the compiler provides a default constructor that initializes the member variables to their default values (zero for numeric types, empty for string, and null for pointers).
+
+```cpp
+class MyClass {
+    public:
+        MyClass() {
+            // Constructor body
+        }
+
+        MyClass(int value) {
+            // Overloaded constructor body
+        }
+    
+    private:
+        int value;
+}
+```
+
+### Destructors
+
+Destructors are also special member functions in C++. They are called when an object is destroyed or deleted. They have the same name as the class, preceded by a tilde (~). They are declared within the class definition and cannot have parameters or return types.
+
+Characteristics of destructors:
+
+- Clean up resources and perform any necessart finalization when an object is destroyed or goes out of scope.
+- Automatically called when an object is destroyed or by using the `delete` keyword to delete an dynamically allocated object.
+- Cannot have parameters or return types.
+- If no destructor is defined in a class, the compiler provides a default destructor that does nothing.
+
+## ex00: Megaphone
+
+There's no much to say about this exercise. It's just me trying to get used to the syntax of C++. Also, trying to create solutions that are more CPP-like (lol). Learned about the standard library `string` class and the `toupper` function.
+
+## ex01: My Awesome Phonebook
+
+Through this exercise, I created my first class in C++. After this exercise, I learned:
+
+1. How to create a class
+2. How to define & declare constructor and destructor
+3. How to initialize class member variables using initialization lists
+4. Using `this` keyword is optional in C++
+5. Common practices when it comes to naming class member variables
+6. Common practices to define & declare getters and setters
+7. How to use `std::string` and `std::getline` to read input from the user
+
+### Usage
+
+Compile the program by using `make`. Then, run the program by using `./PhoneBook`. The program will prompt you to enter a command. The available commands are:
+
+- `ADD`: Add a new contact to the phonebook
+- `SEARCH`: Search for a contact in the phonebook
+- `EXIT`: Exit the program
