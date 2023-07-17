@@ -23,8 +23,13 @@ class HumanB
         void        attack( void );
         void        setWeapon( Weapon &weapon );
     private:
-        std::string name;
-        Weapon      *weapon;
+        std::string _name;
+        Weapon      *_weapon;
 };
+
+/**
+ * Using pointer to the weapon because the weapon is not required for HumanB to be constructed.
+ * Hence, it should be able to set to NULL. If we are using reference, it can't be NULL.
+*/
 
 #endif

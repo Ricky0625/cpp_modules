@@ -12,18 +12,21 @@
 
 #include "Weapon.hpp"
 
+// default constructor
 Weapon::Weapon() {}
 
-Weapon::Weapon(std::string type) {
-    this->setType(type);
-}
+// overload constructor
+Weapon::Weapon(const std::string& type) : _type(type) {}
 
+// destructor
 Weapon::~Weapon() {}
 
-const std::string& Weapon::getType(void) {
-    return (this->type);
+// getter
+const std::string& Weapon::getType(void) const {
+    return (_type);
 }
 
-void    Weapon::setType(std::string type) {
-    this->type = type;
+// setter
+void    Weapon::setType(const std::string& newType) {
+    _type = newType;
 }

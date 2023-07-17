@@ -12,20 +12,29 @@
 
 #include "HumanB.hpp"
 
-HumanB::HumanB(std::string name) {
-    this->name = name;
-    this->weapon = nullptr;
-}
+// constructor. Initially set weapon to NULL
+HumanB::HumanB(std::string name) : _name(name), _weapon(NULL) {}
 
+// destructor
 HumanB::~HumanB(void) {}
 
-void    HumanB::setWeapon(Weapon &weapon) {
-    this->weapon = &weapon;
+/**
+ * @brief setter to set weapon for HumanB
+ * newWeapon is a reference to the weapon.
+ * Hence, we need to use &newWeapon to get the address of the weapon.
+*/
+void    HumanB::setWeapon(Weapon &newWeapon) {
+    _weapon = &newWeapon;
 }
 
+/**
+ * @brief attack function
+ * If weapon is NULL, then attack with bare hands.
+ * Else, attack with the weapon.
+*/
 void    HumanB::attack(void) {
-    if (this->weapon == nullptr)
-        std::cout << this->name << " attacks with bare hands\n";
+    if (_weapon == NULL)
+        std::cout << _name << " attacks with bare hands\n";
     else
-        std::cout << this->name << " attacks with their " << this->weapon->getType() << "\n";
+        std::cout << _name << " attacks with their " << _weapon->getType() << "\n";
 }

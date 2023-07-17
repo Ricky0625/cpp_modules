@@ -12,13 +12,10 @@
 
 #include "HumanA.hpp"
 
-// that weird looking syntax is called "initializer list"
-HumanA::HumanA(std::string name, Weapon &weapon) : weapon(weapon) {
-    this->name = name;
-}
+HumanA::HumanA(std::string name, Weapon &weapon) : _name(name), _weapon(weapon) {}
 
 HumanA::~HumanA(void) {}
 
 void    HumanA::attack(void) {
-    std::cout << this->name << " attacks with their " << this->weapon.getType() << "\n";
+    std::cout << _name << " attacks with their " << _weapon.getType() << "\n";
 }

@@ -27,27 +27,44 @@
 
 int main() {
     {
+        std::cout << "HumanA\n";
         Weapon club = Weapon("crude spiked club");
         HumanA bob("Bob", club);
         bob.attack();
         club.setType("some other type of club");
         bob.attack();
+        std::cout << "\n";
     }
     {
+        std::cout << "HumanB: Without weapon\n";
+        HumanB aglio("Aglio e Olio");
+        aglio.attack();
+        std::cout << "\n";
+    }
+    {
+        std::cout << "HumanB: With weapon\n";
         Weapon club = Weapon("crude spiked club");
         HumanB jim("Jim");
         jim.setWeapon(club);
         jim.attack();
         club.setType("some other type of club");
         jim.attack();
+        std::cout << "\n";
     }
     {
-        Weapon club = Weapon("banana");
+        std::cout << "HumanA vs HumanB\n";
+        Weapon banana = Weapon("banana");
+        Weapon carrot = Weapon("carrot");
+        HumanA rabbit("Rabito", carrot);
         HumanB monke("Monke");
-        monke.setWeapon(club);
+        monke.setWeapon(banana);
         monke.attack();
-        club.setType("rocks");
+        rabbit.attack();
+        banana.setType("rocks");
+        carrot.setType("feet");
         monke.attack();
+        rabbit.attack();
+        std::cout << "\n";
     }
     return 0;
 }

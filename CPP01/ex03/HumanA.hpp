@@ -22,8 +22,17 @@ class HumanA
         ~HumanA( void );
         void        attack( void );
     private:
-        std::string name;
-        Weapon      &weapon;
+        std::string _name;
+        Weapon      &_weapon;
 };
+
+/**
+ * Using reference for the weapon because the weapon is a required for HumanA to be constructed.
+ * HumanA will always be armed with a weapon.
+ * 
+ * Using reference for the weapon have a few advantages:
+ * 1. Avoids create a new copy of the weapon object when constructing HumanA.
+ * 2. Ensure that changes made to the weapon object will be reflected in the HumanA object.
+*/
 
 #endif
