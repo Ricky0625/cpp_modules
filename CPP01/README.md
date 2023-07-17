@@ -24,6 +24,7 @@ Same as CPP00, I will use the same structure to organize my notes.
     - [ex02: HI THIS IS BRAIN](#ex02-hi-this-is-brain)
     - [ex03: Unnecessary violence](#ex03-unnecessary-violence)
     - [ex04: Sed is for losers](#ex04-sed-is-for-losers)
+      - [Usage](#usage)
     - [ex05: Harl 2.0](#ex05-harl-20)
     - [ex06: Harl filter](#ex06-harl-filter)
 
@@ -294,7 +295,23 @@ This exercise aims to let us familiar with references and pointers.
 
 ### ex03: Unnecessary violence
 
+This exercise aims to let us think when should we use a pointer to an object and when should we use a reference to an object. Based on the case described in the exercise, HumanA will always be armed while HumanB may not always have a Weapon, meaning that it's nullable.
+
+Based on the comparison between references and pointers, we can see that reference must always refer to a valid object. So it actually make sense to let the weapon object in HumanA class to be a reference so that we can just reference the created weapon object to it. However, for HumanB class, it's better to use a pointer to Weapon object because it's nullable. Another reason is that we can't set null to a reference so using a pointer here seems ideal.
+
 ### ex04: Sed is for losers
+
+This exercise is about string manipulation, files object, and recreate the `sed` command in C++.
+
+Through this exercise, I learned about how to use `std::fstream`. It's a class that represents a file stream. It provides member functions for creating, opening, closing, reading from, writing to, and manipulating files. It also provides member functions for working with the file's internal position pointer, which is used to identify the current read/write position within the file.
+
+#### Usage
+
+```bash
+./sed <filename> <s1> <s2>
+```
+
+> s1 and s2 are strings. s1 is the string to be replaced and s2 is the string to replace s1.
 
 ### ex05: Harl 2.0
 
