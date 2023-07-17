@@ -60,7 +60,9 @@ int main()
               << std::setw(15) << "stringPTR: " << *stringPTR << "\n"
               << std::setw(15) << "stringREF: " << stringREF << "\n";
     
+    // declare a new string
     std::string newStr = "HELLO FROM LIVER";
+    // let stringPTR point to newStr
     stringPTR = &newStr;
     // use reference to re-assign the value of str
     stringREF = newStr;
@@ -72,6 +74,7 @@ int main()
               << std::setw(15) << "stringPTR: " << stringPTR << "\n"
               << std::setw(15) << "stringREF: " << &stringREF << "\n";
     // Print value
+    // Notice that the value of str changed because we used reference to re-assign the value
     std::cout << " =========== VALUES ===========\n"
               << std::setw(15) << "str: " << str << "\n"
               << std::setw(15) << "newStr: " << newStr << "\n"

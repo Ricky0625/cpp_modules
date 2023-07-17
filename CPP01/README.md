@@ -290,6 +290,8 @@ This exercise aims to let us familiar with how to allocate an array of objects o
 
 ### ex02: HI THIS IS BRAIN
 
+This exercise aims to let us familiar with references and pointers.
+
 ### ex03: Unnecessary violence
 
 ### ex04: Sed is for losers
