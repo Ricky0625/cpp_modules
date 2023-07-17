@@ -137,8 +137,14 @@ In this object, `obj1` has its own dynamic resource. When `obj2` is assigned to 
 
 ### ex00: My First Class in Orthodox Canonical Form
 
+No much to say about this exercise. It is just to pratice the Orthodox Canonical Class Form. Learned about some common practices when comes to implementing the copy constructor and copy assignment operator.
+
 ### ex01: Towards a more useful fixed-point number class
 
+This exercise is about ad-hoc polymorphism. We need to learn how to overload operators and functions. It require us to further extend the Fixed class to be able to handle integer, and float. We also need to overload the `<<` operator to be able to print the value of the Fixed class.
+
 ### ex02: Now we're talking
+
+This exercise want us to overload even more operators! BRUHHH.
 
 ### ex03: BSP
