@@ -28,6 +28,7 @@ CPP00 is the first project of the C++ branch at 42. We will first be introduced 
   - [ex00: Megaphone](#ex00-megaphone)
   - [ex01: My Awesome Phonebook](#ex01-my-awesome-phonebook)
     - [Usage](#usage)
+  - [ex02: The Job Of Your Dreams](#ex02-the-job-of-your-dreams)
 
 ## Mandatory topics
 
@@ -293,3 +294,45 @@ Compile the program by using `make`. Then, run the program by using `./PhoneBook
 - `ADD`: Add a new contact to the phonebook
 - `SEARCH`: Search for a contact in the phonebook
 - `EXIT`: Exit the program
+
+## ex02: The Job Of Your Dreams
+
+This exercise is about recreating `Account.cpp` based on the given files. This is by observing the `Account.hpp`, `tests.cpp` and a log files. The log files contains the output of the `tests.cpp` file. The `tests.cpp` file contains the test cases for the `Account` class. The `Account.hpp` file contains the declaration of the `Account` class.
+
+This exercise let us to understand how to use static member variables and static member functions. I also learned that there are two ways to initialize static member variables:
+
+1. Inline initialization:
+
+    ```cpp
+    class MyClass {
+        private:
+            static int count = 42;
+    }
+    ```
+
+2. Outside class initialization:
+
+    ```cpp
+    class MyClass {
+        private:
+            static int count;
+    }
+
+    int MyClass::count = 42;
+    ```
+
+Besides that, I also learned the difference between private static member variables and public static member variables. Below are the differences:
+
+| Aspect | Private static member variables | Public static member variables |
+| --- | --- | --- |
+| Accessibility | Accessible within the class | Accessible within and outside the class |
+| Visibility | Not directly accessible outside the class | Accessible using the class name or through an instance of the class |
+| Purpose | Internal implementation details or data not intended for direct external access | Shared data or constants accessible to external code |
+| Usage | Often used for encapsulation and data hiding | Often used for global data or constants |
+| Can be modified | Yes, within the class | Yes, within the class or outside the class |
+| Shared among class instances | Yes | Yes |
+
+Here are some other notable findings about static member variables:
+
+1. They cannot be set to `protected`.
+2. They cannot be initialized using initialization lists. Initialization lists are only used for initializing non-static member variables.
