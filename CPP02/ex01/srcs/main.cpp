@@ -12,6 +12,23 @@
 
 #include "Fixed.hpp"
 
+/**
+ * Noted that for my copy constructor, I didn't copy an existing object to
+ * a new object using the assignment operator. Hence, you will not be able
+ * to see the message "Copy assignment operator called" in the output.
+ * 
+ * Based on what I understand, the copy constructor is used to create a new
+ * object from an existing object. The assignment operator is used to
+ * assign an existing object to another existing object. Hence, I did not
+ * use the overloaded assignment operator in my copy constructor because
+ * they are meant for different purposes?
+ * 
+ * Besides that, if I rely on copy assignment operator in my copy constructor,
+ * it seems like code duplication to me. Moreover, if there are any changes or
+ * modifications needed in the assignment operator, I will need to make the
+ * same changes in the copy constructor as well, which increase the likelihoof
+ * of making mistakes.
+*/
 int main()
 {
     Fixed   a;

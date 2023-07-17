@@ -22,10 +22,10 @@ class Fixed
         Fixed( void );
         Fixed( const int );
         Fixed( const float );
-        Fixed( const Fixed& fixed );
+        Fixed( const Fixed& other );
         ~Fixed( void );
 
-        Fixed &operator=(const Fixed& fixed);
+        Fixed &operator=(const Fixed& other);
 
         int                 getRawBits( void ) const;
         void                setRawBits( int const raw );

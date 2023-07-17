@@ -21,34 +21,44 @@ Fixed::Fixed(void) : _fixed(0) {
     std::cout << "Default constructor called" << std::endl;
 }
 
+/**
+ * @overload
+ * @brief Fixed but with int parameter
+*/
 Fixed::Fixed(const int val) {
     std::cout << "Int constructor called" << std::endl;
     setRawBits(val << this->_fractBits);
 }
 
+/**
+ * @overload
+ * @brief Fixed but with float parameter
+*/
 Fixed::Fixed(const float val) {
     std::cout << "Float constructor called" << std::endl;
-    setRawBits(std::roundf(val * (1 << this->_fractBits)));
+    setRawBits(roundf(val * (1 << this->_fractBits)));
 }
 
 /**
  * @brief Copy constructor
- * @details Implement using assignment operator
+ * @details intialize data members using initialization list
 */
-Fixed::Fixed(const Fixed& fixed) {
+Fixed::Fixed(const Fixed& other) : _fixed(other._fixed) {
     std::cout << "Copy constructor called" << std::endl;
-    *this = fixed;
 }
 
 /**
  * @brief Assignment operator overload
  * @attention Will prevent self-assignment by comparing the addreses
  *            of the object being assigned
+ * @attention this keyword holds the memory address of the current instance of a class
 */
-Fixed &Fixed::operator=(const Fixed& fixed) {
+Fixed &Fixed::operator=(const Fixed& other) {
     std::cout << "Copy assignment operator called" << std::endl;
-    if (this != &fixed)
-        this->_fixed = fixed.getRawBits(); 
+    if (this == &other)
+        return *this;
+    
+    this->_fixed = other._fixed; 
     return *this;
 }
 
