@@ -23,22 +23,24 @@ Fixed::Fixed(void) : _fixed(0) {
 
 /**
  * @brief Copy constructor
- * @details Implement using assignment operator
+ * @details intialize data members using initialization list
 */
-Fixed::Fixed(const Fixed& fixed) {
+Fixed::Fixed(const Fixed& other) : _fixed(other._fixed) {
     std::cout << "Copy constructor called" << std::endl;
-    *this = fixed;
 }
 
 /**
  * @brief Assignment operator overload
  * @attention Will prevent self-assignment by comparing the addreses
  *            of the object being assigned
+ * @attention this keyword holds the memory address of the current instance of a class
 */
-Fixed &Fixed::operator=(const Fixed& fixed) {
+Fixed &Fixed::operator=(const Fixed& other) {
     std::cout << "Copy assignment operator called" << std::endl;
-    if (this != &fixed)
-        this->_fixed = fixed.getRawBits(); 
+    if (this == &other)
+        return *this;
+    
+    this->_fixed = other._fixed; 
     return *this;
 }
 
@@ -54,12 +56,12 @@ Fixed::~Fixed(void) {
 */
 int Fixed::getRawBits(void) const {
     std::cout << "getRawBits member function called" << std::endl;
-    return this->_fixed;
+    return _fixed;
 }
 
 /**
  * @brief Setter for _fixed
 */
 void    Fixed::setRawBits(int const raw) { 
-    this->_fixed = raw;
+    _fixed = raw;
 }
