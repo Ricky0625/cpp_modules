@@ -286,6 +286,8 @@ This exercise is about learning the difference between allocating an object on t
 
 ### ex01: Moar brainz!
 
+This exercise aims to let us familiar with how to allocate an array of objects on the heap. I also learned about how to use `new[]` and `delete[]` operators to allocate and free memory for arrays. There's nothing much to say about this exercise.
+
 ### ex02: HI THIS IS BRAIN
 
 ### ex03: Unnecessary violence

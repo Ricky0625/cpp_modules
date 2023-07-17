@@ -12,6 +12,10 @@
 
 #include "Zombie.hpp"
 
+/**
+ * @brief Parse input
+ * 
+*/
 static void parse_input(int ac, char **av) {
 
     const char *numStr;
@@ -22,13 +26,22 @@ static void parse_input(int ac, char **av) {
     }
     numStr = av[1];
     for (int i = 0; i < (int)strlen(numStr); i++) {
-        if (isdigit(numStr[i]) == 0) {
+        if (isdigit(numStr[i]) == false) {
             std::cout << "Invalid argument for <Number of zombie>!\n";
             exit(EXIT_FAILURE);
         }
     }
 }
 
+/**
+ * @brief Create a zombie horde
+ * 
+ * @details
+ * 1. Parse the inputs
+ * 2. Create a zombie horde
+ * 3. Announce each zombie
+ * 4. Delete the zombie horde
+*/
 int main(int ac, char **av)
 {
     int         i = -1;

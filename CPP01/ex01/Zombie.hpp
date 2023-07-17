@@ -14,6 +14,8 @@
 # define ZOMBIE_HPP
 
 # include <iostream>
+# include <cstring>
+# include <cstdlib>
 
 class Zombie
 {

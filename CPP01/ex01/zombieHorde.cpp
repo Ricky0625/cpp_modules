@@ -12,6 +12,17 @@
 
 #include "Zombie.hpp"
 
+/**
+ * @brief Create a zombie horde
+ * 
+ * @details
+ * 1. Create a zombie horde
+ * 2. Set the name of each zombie
+ * 3. Return the zombie horde
+ * 
+ * @attention
+ * new[] - this is to allocate an array of objects on heap
+ */
 Zombie  *zombieHorde(int N, std::string name) {
     
     int     i = -1;
