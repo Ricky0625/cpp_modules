@@ -12,6 +12,14 @@
 
 #include "Zombie.hpp"
 
+/**
+ * @brief Create a pointer to a new Zombie object
+ * 
+ * @details
+ * Allocate memory for a new Zombie object using the *new* keyword. This
+ * creates a new instance of the Zombie on the heap. The Zombie object
+ * will then be set to the name passed in as a parameter.
+*/
 Zombie  *newZombie(std::string name) {
 
     Zombie  *newZombie = new Zombie();

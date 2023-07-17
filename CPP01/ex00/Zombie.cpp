@@ -12,16 +12,24 @@
 
 #include "Zombie.hpp"
 
-Zombie::Zombie(void) {}
+// Constructor
+Zombie::Zombie() {}
 
-Zombie::~Zombie(void) {
+// Destructor
+Zombie::~Zombie() {
     std::cout << this->name << ": Byyyyeeee bbbyeeeee...\n";
 }
 
+// Let the zombie to announce itself
 void    Zombie::announce(void) {
-    std::cout << this->name << ": BraiiiiiiinnnzzzZ...\n";
+    std::cout << name << ": BraiiiiiiinnnzzzZ...\n";
 }
 
-void    Zombie::setName(std::string name) {
+// Setter: set zombie's name
+// @attention: using *this* keyword here because there's a name conflict 
+// with the parameter name and our data member name. By doing so, we're
+// telling the compiler that we want to set the data member name to the
+// value of the parameter name.
+void    Zombie::setName(const std::string& name) {
     this->name = name;
 }

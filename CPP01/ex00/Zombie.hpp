@@ -18,10 +18,10 @@
 class Zombie
 {
     public:
-        Zombie( void );
-        ~Zombie( void );
-        void    announce( void );
-        void    setName( std::string name );
+        Zombie(); // constructor
+        ~Zombie(); // destructor
+        void    announce( void ); 
+        void    setName( const std::string& name ); // setter
     private:
         std::string name;
 };

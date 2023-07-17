@@ -9,6 +9,24 @@ According to the subject, these are the topics that CPP01 want us to explore:
 
 Same as CPP00, I will use the same structure to organize my notes.
 
+## Table of Contents
+
+- [CPP01 Learning Notes](#cpp01-learning-notes)
+  - [Table of Contents](#table-of-contents)
+  - [Mandatory Topics](#mandatory-topics)
+    - [Memory allocation](#memory-allocation)
+    - [Pointers to members](#pointers-to-members)
+    - [References](#references)
+    - [Switch statement](#switch-statement)
+  - [Exercises](#exercises)
+    - [ex00: BraiiiiiiinnnzzzZ](#ex00-braiiiiiiinnnzzzz)
+    - [ex01: Moar brainz!](#ex01-moar-brainz)
+    - [ex02: HI THIS IS BRAIN](#ex02-hi-this-is-brain)
+    - [ex03: Unnecessary violence](#ex03-unnecessary-violence)
+    - [ex04: Sed is for losers](#ex04-sed-is-for-losers)
+    - [ex05: Harl 2.0](#ex05-harl-20)
+    - [ex06: Harl filter](#ex06-harl-filter)
+
 ## Mandatory Topics
 
 ### Memory allocation
@@ -138,9 +156,9 @@ Please note that there's some differences when using pointers to members on memb
         private:
             int privateMember;
 
-        void privateMethod() {
-            std::cout << "Private method called\n";
-        }
+            void privateMethod() {
+                std::cout << "Private method called\n";
+            }
 
         public:
             void accessPrivateMember() {
@@ -153,15 +171,14 @@ Please note that there's some differences when using pointers to members on memb
                 void (MyClass::*ptrToPrivateMethod)() = &MyClass::privateMethod;
                 (this->*ptrToPrivateMethod)();
             }
-        };
+    };
 
-        int main() {
-            MyClass obj;
-            obj.accessPrivateMember();  // Output: Private member value: 42
-            obj.accessPrivateMethod();  // Output: Private method called
-
-            return 0;
-        }
+    int main() {
+        MyClass obj;
+        obj.accessPrivateMember();  // Output: Private member value: 42
+        obj.accessPrivateMethod();  // Output: Private method called
+        return 0;
+    }
     ```
 
 2. Protected
@@ -173,9 +190,9 @@ Please note that there's some differences when using pointers to members on memb
         protected:
             int protectedMember;
 
-        void protectedMethod() {
-            std::cout << "Protected method called\n";
-        }
+            void protectedMethod() {
+                std::cout << "Protected method called\n";
+            }
     };
 
     class DerivedClass : public BaseClass {
@@ -203,20 +220,78 @@ Please note that there's some differences when using pointers to members on memb
 
 ### References
 
+In C++, a reference is a way to create an **alternative name or alias** for an existing object. It allows you to refer to the same object using a different name, providing a convenient and efficient way to work with variables.
+
+Hmmm... sounds like pointers in C... right? Well, there's some differences between pointers and references. Let's take a look at the differences by understanding this analogy:
+
+A pointer in C is like a house address written on a piece of paper. It holds the information about the location of a house (memory address), and you can follow the address to access of modify the house (memory location) it points to. You can also change the address on the paper to point to a different house (reassign the pointer). You can also have a piece of paper with no address written on it (NULL pointer).
+
+In C++, a reference is like a nickname or an alias for a house. It's like an alternative name that refers directly to the house itself, not just its address. **Once you assign a nickname to a house, it always refers to that specific house and cannot be changed to refer to a different house.** You cannot have a nickname without a house, it must always refer to a house.
+
+Here are some notable points about reference:
+
+1. References are declared using `&` symbol. They must be initialized when they are declared. For example, `int &ref = var;`
+2. Alias for an Object. A reference acts as an alias for the object it is referencing. It refers to the same memory location as the object it is initialized with. Any changes made to the reference will affect the original object, and vice versa.
+3. No memory allocation. A reference does not allocate any memory. It only provides an alternative name for an existing object.
+4. References are commonly used as function parameters to pass arguments by reference. This allows the function to modify the original object that was passed to it.
+5. Cannot be Null. Unlike pointers, references must always refer to a valid object. They cannot be uninitialized or set to null.
+6. Immutable reference. Once a reference is initialized to refer to an object, it cannot be changed to refer to a different object. The reference remains bound to the original object throughout its lifetime.
+7. No pointer arithmetic. Unlike pointers, references do not support pointer arithmetic. You cannot increment or decrement a reference.
+
 ### Switch statement
+
+Switch statement is a control flow statement used for multi-way branching based on the value of an expression. It allows you to execute different blocks of code based on different possible values of a variable.
+
+The syntax of switch statement is as follows:
+
+```cpp
+switch (expression) {
+    case value1:
+        // code to be executed if expression == value1
+        break;
+    case value2:
+        // code to be executed if expression == value2
+        break;
+    case value3:
+        // code to be executed if expression == value3
+        break;
+    default:
+        // code to be executed if expression doesn't match any of the above cases
+}
+```
+
+There's a concept called **fall-through** in switch statement. It means that if there's no `break` statement in a case, the execution will continue to the next case. This is useful in scenarios where you want to execute the same code for multiple cases.
+
+```cpp
+switch (expression) {
+    case value1:
+    case value2:
+    case value3:
+        // code to be executed if expression == value1 or value2 or value3
+        break;
+    default:
+        // code to be executed if expression doesn't match any of the above cases
+}
+```
+
+The `default` case is optional and is executed when none of the case labels match the expression's value. It is similar to the `else` clause in an `if-else` statement. It is usually placed at the end of the switch block, but it can be placed anywhere in the block.
+
+The case labels must be constants or constant expressions. They are compared with the value of the expression using the `==` operator. The expression is usually an integral type like `int` or `char`.
 
 ## Exercises
 
-### ex00
+### ex00: BraiiiiiiinnnzzzZ
 
-### ex01
+This exercise is about learning the difference between allocating an object on the stack and on the heap. I also learned about how destructors are called when an object goes out of scope. Besides that, I also understand that the benefits of using stack-allocated objects in C++, which one of them is that the object will be automatically destroyed when it goes out of scope. So it eliminates the need to manually free the memory allocated for the object.
 
-### ex02
+### ex01: Moar brainz!
 
-### ex03
+### ex02: HI THIS IS BRAIN
 
-### ex04
+### ex03: Unnecessary violence
 
-### ex05
+### ex04: Sed is for losers
 
-### ex06
+### ex05: Harl 2.0
+
+### ex06: Harl filter
