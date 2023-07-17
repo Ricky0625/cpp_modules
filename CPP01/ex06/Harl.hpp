@@ -15,6 +15,7 @@
 
 # include <iostream>
 # include <iomanip>
+# include <cstdlib>
 
 enum e_level {
     DEBUG,

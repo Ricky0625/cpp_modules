@@ -315,4 +315,8 @@ Through this exercise, I learned about how to use `std::fstream`. It's a class t
 
 ### ex05: Harl 2.0
 
+This exercise aims to let us familiar with pointers to member functions. It's quite straightforward, so nothing much to say about this exercise.
+
 ### ex06: Harl filter
+
+This exercise is also quite straightforward. Basically, asking us to apply the concept of fall-through in switch statement.

@@ -14,7 +14,7 @@
 
 void    log_err_msg(void)
 {
-    std::cout << "./harp2.0 <level codes...>" << std::endl;
+    std::cout << "./harp2.0 <level code>" << std::endl;
     std::cout << "\nLevel codes: DEBUG, INFO, WARNING, ERROR" << std::endl;
 }
 
