@@ -26,7 +26,7 @@
  * Besides that, if I rely on copy assignment operator in my copy constructor,
  * it seems like code duplication to me. Moreover, if there are any changes or
  * modifications needed in the assignment operator, I will need to make the
- * same changes in the copy constructor as well, which increase the likelihoof
+ * same changes in the copy constructor as well, which increase the likelihood
  * of making mistakes.
 */
 int main()
