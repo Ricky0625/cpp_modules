@@ -202,3 +202,7 @@ When overloading post- increment/decrement:
 In general, when overloading built-in functions, the function signature should match the built-in function as closely as possible.
 
 ### ex03: BSP
+
+This exercise aims to create a class called `Point` that uses the `Fixed` class we created in the previous exercises. After that create a function using the `Point` class called `bsp` which is use to detemine whether a point is inside a triangle or not. Of course, the function should also be able to return false if the point if on the edge of the triangle.
+
+This is by calculating the area of the triangle and the area of the three triangles formed by the point and the three vertices of the triangle. If the sum of the three areas is equal to the area of the triangle, then the point is inside the triangle. Otherwise, it is outside the triangle.
