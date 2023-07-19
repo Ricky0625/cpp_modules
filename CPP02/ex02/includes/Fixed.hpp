@@ -15,9 +15,6 @@
 
 # include <iostream>
 # include <cmath>
-#include <vector>
-#include <exception>
-# include <cstdlib>
 
 class Fixed
 {

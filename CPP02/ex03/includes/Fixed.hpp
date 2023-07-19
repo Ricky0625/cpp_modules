@@ -26,29 +26,33 @@ class Fixed
         Fixed( const Fixed& fixed );
         ~Fixed( void );
 
-        Fixed               &operator=( const Fixed& fixed ); // assignment operator
+        // copy assignment operator
+        Fixed   &operator=( const Fixed& fixed ); // assignment operator
 
-        bool                operator>( const Fixed& rightOperand ) const;  // greater than
-        bool                operator<( const Fixed& rightOperand ) const;  // less than
-        bool                operator>=( const Fixed& rightOperand ) const; // greater and equal
-        bool                operator<=( const Fixed& rightOperand ) const; // less and equal
-        bool                operator==( const Fixed& rightOperand ) const; // equal
-        bool                operator!=( const Fixed& rightOperand ) const; // not equal
+        // comparison operators
+        bool    operator>( const Fixed& other ) const;  // greater than
+        bool    operator<( const Fixed& other ) const;  // less than
+        bool    operator>=( const Fixed& other ) const; // greater and equal
+        bool    operator<=( const Fixed& other ) const; // less and equal
+        bool    operator==( const Fixed& other ) const; // equal
+        bool    operator!=( const Fixed& other ) const; // not equal
 
-        Fixed               operator+( const Fixed& rightOperand ); // addition
-        Fixed               operator-( const Fixed& rightOperand ); // substraction
-        Fixed               operator*( const Fixed& rightOperand ); // multiplication
-        Fixed               operator/( const Fixed& rightOperand ); // division
+        // arithmetic operators
+        Fixed   operator+( const Fixed& other ) const; // addition
+        Fixed   operator-( const Fixed& other ) const; // substraction
+        Fixed   operator*( const Fixed& other ) const; // multiplication
+        Fixed   operator/( const Fixed& other ) const; // division
 
-        Fixed               operator++( void ); // pre-increment
-        const Fixed         operator++( int );  // post-increment
-        Fixed               operator--( void ); // pre-decrement
-        const Fixed         operator--( int );  // post-decrement
+        // increment and decrement operators
+        Fixed&  operator++( void ); // pre-increment
+        Fixed   operator++( int );  // post-increment
+        Fixed&  operator--( void ); // pre-decrement
+        Fixed   operator--( int );  // post-decrement
 
-        int                 getRawBits( void ) const;
-        void                setRawBits( int const raw );
-        float               toFloat( void ) const;
-        int                 toInt( void ) const;
+        int     getRawBits( void ) const;
+        void    setRawBits( int const raw );
+        float   toFloat( void ) const;
+        int     toInt( void ) const;
         
         static Fixed&       min(Fixed &a, Fixed &b);
         static const Fixed& min(const Fixed &a, const Fixed &b);
