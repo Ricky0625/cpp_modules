@@ -41,10 +41,10 @@ class Fixed
         bool    operator!=( const Fixed& other ) const; // not equal
 
         // arithmetic operators
-        Fixed   operator+( const Fixed& other ); // addition
-        Fixed   operator-( const Fixed& other ); // substraction
-        Fixed   operator*( const Fixed& other ); // multiplication
-        Fixed   operator/( const Fixed& other ); // division
+        Fixed   operator+( const Fixed& other ) const; // addition
+        Fixed   operator-( const Fixed& other ) const; // substraction
+        Fixed   operator*( const Fixed& other ) const; // multiplication
+        Fixed   operator/( const Fixed& other ) const; // division
 
         // increment and decrement operators
         Fixed&  operator++( void ); // pre-increment

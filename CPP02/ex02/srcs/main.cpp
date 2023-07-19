@@ -99,12 +99,14 @@ void    detailed_tests(void) {
          << "b + d: " << b + d << endl
          << "b + c: " << b + c << endl
          << "e + f: " << e + f << endl
+         << "b + c + d + e + f: " << b + c + d + e + f << endl
          << endl
          << "SUBSTRACTION (-)" << endl
          << "b - d: " << b - d << endl
          << "b - c: " << b - c << endl
          << "e - f: " << e - f << endl
          << "f - e: " << f - e << endl
+         << "b - c - d - e - f: " << b - c - d - e - f << endl
          << endl
          << "MULTIPLICATION (*)" << endl
          << "b * 2: " << b * Fixed(2) << endl

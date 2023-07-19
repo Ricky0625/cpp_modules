@@ -80,6 +80,13 @@ void Fixed::setRawBits(int const raw)
  * the division is a floating point number. If we didn't perform these typecasts,
  * the division operation would be performed using integer division, which would
  * truncate any fractional part and produce an incorrect result.
+ * 
+ * @formula
+ * float value = fixed value / scaling factor
+ * scaling factor is used to scale the fixed point number to the desired decimal places
+ * scaling factor is typically 2 to the power of the number of fractional bits in the fixed point number
+ * 
+ * 2 ^ (fractional bits) == 1 << (fractional bits)
  */
 float Fixed::toFloat(void) const
 {
@@ -88,6 +95,11 @@ float Fixed::toFloat(void) const
 
 /**
  * @brief Convert Fixed point number to Int
+ * 
+ * @formula
+ * int value = fixed value >> fractional bits
+ * Using right shift operator to perform the division by 2 ^ fractional bits,
+ * to effectively remove the fractional bits from the fixed point number.
  */
 int Fixed::toInt(void) const
 {
@@ -97,6 +109,11 @@ int Fixed::toInt(void) const
 /**
  * @overload
  * @brief Greater than operator overload
+ * @attention
+ * Convert the fixed point number to float first, then compare.
+ * This is to ensure that the comparison is done between two floating point numbers,
+ * because this can take advantage of the floating-point representation's dynamic
+ * precision, which leads to more accurate results when comparing fixed-point numbers.
  */
 bool Fixed::operator>(const Fixed &other) const
 {
@@ -148,31 +165,53 @@ bool Fixed::operator!=(const Fixed &other) const
     return this->toFloat() != other.toFloat();
 }
 
-Fixed Fixed::operator+(const Fixed &other)
+/**
+ * @overload
+ * @brief Addition operator overload
+ * @return a new instance of Fixed
+*/
+Fixed Fixed::operator+(const Fixed &other) const
 {
-    return this->toFloat() + other.toFloat();
+    float newFixed = this->toFloat() + other.toFloat();
+    return Fixed(newFixed);
 }
 
-Fixed Fixed::operator-(const Fixed &other)
+/**
+ * @overload
+ * @brief Subtraction operator overload
+ * @return a new instance of Fixed
+*/
+Fixed Fixed::operator-(const Fixed &other) const
 {
-    return this->toFloat() - other.toFloat();
+    float newFixed = this->toFloat() - other.toFloat();
+    return Fixed(newFixed);
 }
 
-Fixed Fixed::operator*(const Fixed &other)
+/**
+ * @overload
+ * @brief Multiplication operator overload
+ * @return a new instance of Fixed
+*/
+Fixed Fixed::operator*(const Fixed &other) const
 {
-    return this->toFloat() * other.toFloat();
+    float newFixed = this->toFloat() * other.toFloat();
+    return Fixed(newFixed);
 }
 
-Fixed Fixed::operator/(const Fixed &other)
+/**
+ * @overload
+ * @brief Division operator overload
+ * @return a new instance of Fixed
+*/
+Fixed Fixed::operator/(const Fixed &other) const
 {
-    if (this->toFloat() == 0.0f && other.toFloat() > 0.0f)
-    {
+    if (other._fixed == 0) {
         std::cout << "(undefined) ";
-        return 0;
+        return Fixed(0);
     }
-    else if (other.toFloat() == 0.0f)
-        return 0;
-    return this->toFloat() / other.toFloat();
+
+    float newFixed = this->toFloat() / other.toFloat();
+    return Fixed(newFixed);
 }
 
 /**
@@ -195,10 +234,10 @@ Fixed& Fixed::operator++(void)
  */
 Fixed Fixed::operator++(int)
 {
-    Fixed tmp(*this);
+    Fixed copy(*this);
 
     this->_fixed++;
-    return tmp;
+    return copy;
 }
 
 /**
@@ -221,13 +260,16 @@ Fixed& Fixed::operator--(void)
  */
 Fixed Fixed::operator--(int)
 {
-    Fixed tmp(*this);
+    Fixed copy(*this);
 
     this->_fixed--;
-    return tmp;
+    return copy;
 }
 
 /**
+ * @overload
+ * @param a the first fixed point number
+ * @param b the second fixed point number
  * @brief Get the smallest one between two fixed point number
  */
 Fixed &Fixed::min(Fixed &a, Fixed &b)
@@ -236,6 +278,9 @@ Fixed &Fixed::min(Fixed &a, Fixed &b)
 }
 
 /**
+ * @overload
+ * @param a the first const fixed point number
+ * @param b the second const fixed point number
  * @brief Get the smallest one between two fixed point number
  */
 const Fixed &Fixed::min(const Fixed &a, const Fixed &b)
@@ -244,6 +289,9 @@ const Fixed &Fixed::min(const Fixed &a, const Fixed &b)
 }
 
 /**
+ * @overload
+ * @param a the first fixed point number
+ * @param b the second fixed point number
  * @brief Get the largest one between two fixed point number
  */
 Fixed &Fixed::max(Fixed &a, Fixed &b)
@@ -252,6 +300,9 @@ Fixed &Fixed::max(Fixed &a, Fixed &b)
 }
 
 /**
+ * @overload
+ * @param a the first const fixed point number
+ * @param b the second const fixed point number
  * @brief Get the largest one between two fixed point number
  */
 const Fixed &Fixed::max(const Fixed &a, const Fixed &b)

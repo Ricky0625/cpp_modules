@@ -18,6 +18,10 @@ Below are the mandatory topics for this module:
     - [ex00: My First Class in Orthodox Canonical Form](#ex00-my-first-class-in-orthodox-canonical-form)
     - [ex01: Towards a more useful fixed-point number class](#ex01-towards-a-more-useful-fixed-point-number-class)
     - [ex02: Now we're talking](#ex02-now-were-talking)
+      - [Overloading comparison operators](#overloading-comparison-operators)
+      - [Overloading arithmetic operators](#overloading-arithmetic-operators)
+      - [Overloading pre- \& post- increment \& decrement](#overloading-pre---post--increment--decrement)
+      - [Overloading built-in functions](#overloading-built-in-functions)
     - [ex03: BSP](#ex03-bsp)
 
 ## Ad-hoc PolyMorphism
@@ -145,6 +149,56 @@ This exercise is about ad-hoc polymorphism. We need to learn how to overload ope
 
 ### ex02: Now we're talking
 
-This exercise want us to overload even more operators! BRUHHH.
+This exercise want us to overload even more operators and functions! BRUHHH.
+
+In this exercise, we are required to overload the following operators:
+
+1. Comparision operators: `==`, `!=`, `>`, `<`, `>=`, `<=`
+2. Arithmetic operators: `+`, `-`, `*`, `/`
+3. Post- and pre-increment and decrement operators: `++`, `--`
+
+We also need to overload the following functions:
+
+1. `min`: Takes two `Fixed` references and returns the smallest one.
+2. `min`: Takes two `Fixed` const references and returns the smallest one.
+3. `max`: Takes two `Fixed` references and returns the biggest one.
+4. `max`: Takes two `Fixed` const references and returns the biggest one.
+
+#### Overloading comparison operators
+
+When overloading comparison operators, we need to consider the following:
+
+1. **Return type**. The return type should be `bool`.
+2. **Const correctness**. The overloaded operators should be `const` member functions to indicate that they do not modify the object.
+3. **Provide all relevant comparisons**. If you overload any of the comparison operators, it is generally a good practice to overload all of them to ensure that the behavior is consistent.
+4. **Avoid modifying operands**. The operands should be passed by `const` reference to avoid modifying them. This also avoids unnecessary copying of the operands.
+
+#### Overloading arithmetic operators
+
+When overloading arithmetic operators, we need to consider the following:
+
+1. **Return type**. The return type should be something that makes sense in your context. It should also return a new object instead of modifying the operands.
+2. **Const correctness**. The overloaded operators should be `const` member functions to indicate that they do not modify the object.
+3. **Error handling**. The overloaded operators should handle any errors that may occur. For example, if you are overloading the division operator, you should check for division by zero.
+
+#### Overloading pre- & post- increment & decrement
+
+When overloading pre- increment/decrement:
+
+1. **Behavior**: The pre-increment/decrement operator should increment/decrement the value of the object and return the updated value.
+2. **Return type**: The return type should be a reference to the object to allow chaining of operations.
+3. **Overloads as member function**: The pre-increment/decrement operator should be overloaded as a member function to allow the object to be modified.
+4. **Const correctness**: The pre-increment/decrement operator should be a `const` member function to indicate that it does not modify the object.
+
+When overloading post- increment/decrement:
+
+1. **Behavior**: The post-increment/decrement operator should increment/decrement the value of the object and return the previous value.
+2. **Return type**: The return type should be a copy of the object to avoid returning a reference to a local variable.
+3. **Overloads as member function**: The post-increment/decrement operator should be overloaded as a member function to allow the object to be modified.
+4. **Const correctness**: The post-increment/decrement operator should be a `const` member function to indicate that it does not modify the object.
+
+#### Overloading built-in functions
+
+In general, when overloading built-in functions, the function signature should match the built-in function as closely as possible.
 
 ### ex03: BSP
