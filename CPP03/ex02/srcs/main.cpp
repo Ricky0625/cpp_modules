@@ -29,8 +29,12 @@ int main(void) {
 		FragTrap	johnny("JOHNNY");
 		
 		johnny.showStatus(FRAGTRAP);
+		int index = 0;
 		while (johnny.getEnergyPoints())
+		{
+			std::cout << std::setw(3) << ++index << ": ";
 			johnny.highFivesGuys();
+		}
 		johnny.showStatus(FRAGTRAP);
 		johnny.highFivesGuys();
 	}
@@ -47,5 +51,10 @@ int main(void) {
 		johnny.showStatus(FRAGTRAP);
 		johnny.highFivesGuys();
 		johnny.showStatus(FRAGTRAP);
+	}
+	{
+		print_test_title("Testing virtual destructor");
+		ClapTrap *johnny = new FragTrap("JOHNNY");
+		delete johnny;
 	}
 }

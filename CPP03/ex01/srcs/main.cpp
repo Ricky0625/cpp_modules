@@ -12,36 +12,46 @@
 
 #include "ScavTrap.hpp"
 
-void	print_test_title(std::string title) {
+void print_test_title(std::string title)
+{
 	std::cout << BCYAN << "\n[TEST]:" << title << DEF << std::endl;
 }
 
-int main(void) {
+int main(void)
+{
 
 	{
 		print_test_title("BRUCE says hello");
-		ScavTrap	bruce("BRUCE");
-	
+		ScavTrap bruce("BRUCE");
+
 		bruce.showStatus(SCAVTRAP);
 	}
 	{
 		print_test_title("BRUCE runs out of energy points and wants to take a power nap");
-		ScavTrap	bruce("BRUCE");
-	
+		ScavTrap bruce("BRUCE");
+
 		bruce.showStatus(SCAVTRAP);
+		int index = 0;
 		while (bruce.getEnergyPoints())
+		{
+			std::cout << std::setw(2) << ++index << ": ";
 			bruce.attack("JOKER");
+		}
 		bruce.showStatus(SCAVTRAP);
 		bruce.attack("JOKER");
 		bruce.guardGate();
 	}
 	{
 		print_test_title("BRUCE guards the gate for 50 rounds and wants to take a power nap");
-		ScavTrap	bruce("BRUCE");
-	
+		ScavTrap bruce("BRUCE");
+
 		bruce.showStatus(SCAVTRAP);
+		int index = 0;
 		while (bruce.getEnergyPoints())
+		{
+			std::cout << std::setw(2) << ++index << ": ";
 			bruce.guardGate();
+		}
 		bruce.showStatus(SCAVTRAP);
 		bruce.guardGate();
 		bruce.attack("JOKER");
@@ -49,7 +59,7 @@ int main(void) {
 	{
 		print_test_title("I'm ScavTrap. No, I mean ClapTrap. No! I mean ScavTrap... What's wrong with me?!");
 		ScavTrap bruce("BRUCE");
-	
+
 		bruce.showStatus(SCAVTRAP);
 		bruce.attack("JOKER");
 		bruce.showStatus(SCAVTRAP);
@@ -59,5 +69,10 @@ int main(void) {
 		bruce.showStatus(SCAVTRAP);
 		bruce.guardGate();
 		bruce.showStatus(SCAVTRAP);
+	}
+	{
+		print_test_title("The importance of virtual destructor");
+		ClapTrap *bruce = new ScavTrap("BRUCE");
+		delete bruce;
 	}
 }

@@ -38,12 +38,17 @@ class ClapTrap
 		ClapTrap( void );
 		ClapTrap( std::string name );
 		ClapTrap( const ClapTrap &other );
-		~ClapTrap( void );
+		// Informing the compiler to call the most derived class's destructor first
+		// when deleting objects through a base class pointer.
+		virtual ~ClapTrap( void );
 
 		ClapTrap		&operator=(const ClapTrap &other);
 
 		// Member functions
-		void			attack( const std::string& target );
+		// NOTE: virtual keyword is used to allow derived class to override the function
+		// Since ScavTrap will also have attack function, we can make it virtual so that
+		// it can override this function to have different implementation.
+		virtual void	attack( const std::string& target );
 		void			takeDamage( unsigned int amount );
 		void 			beRepaired( unsigned int amount );
 

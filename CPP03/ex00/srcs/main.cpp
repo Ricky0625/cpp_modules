@@ -39,7 +39,7 @@ int main(void) {
 		joe.attack("MAMA");
 	}
 	{
-		print_test_title("The battle ends because JOE is tired lmao");
+		print_test_title("The battle ends because both of them are tired lmao");
 		ClapTrap joe("JOE");
 		ClapTrap mama("MAMA");
 
@@ -50,8 +50,11 @@ int main(void) {
 			mama.takeDamage(0);
 			mama.attack("JOE");
 			joe.takeDamage(0);
+			std::cout << std::endl;
 		}
 		joe.attack("MAMA");
+		mama.attack("JOE");
 		joe.showStatus(CLAPTRAP);
+		mama.showStatus(CLAPTRAP);
 	}
 }

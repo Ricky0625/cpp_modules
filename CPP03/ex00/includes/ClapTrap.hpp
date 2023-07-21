@@ -40,16 +40,16 @@ class ClapTrap
 		ClapTrap( const ClapTrap &other );
 		~ClapTrap( void );
 
-		ClapTrap		&operator=(const ClapTrap &other);
+		ClapTrap	&operator=(const ClapTrap &other);
 
 		// Member functions
-		void			attack( const std::string& target );
-		void			takeDamage( unsigned int amount );
-		void 			beRepaired( unsigned int amount );
+		void	attack( const std::string& target );
+		void	takeDamage( unsigned int amount );
+		void 	beRepaired( unsigned int amount );
 
 		// Helper member functions
-		bool			canAct( e_trap trap, e_check check );
-		void			showStatus( e_trap trap );
+		bool	canAct( e_trap trap, e_check check );
+		void	showStatus( e_trap trap );
 		unsigned int	getEnergyPoints( void ) const;
 	private:
 		std::string		_name;

@@ -12,9 +12,10 @@
 
 #include "FragTrap.hpp"
 
-
+// default constructor
 FragTrap::FragTrap(void) : ClapTrap() {}
 
+// parameter constructor
 FragTrap::FragTrap(std::string name) : ClapTrap(name) {
 	_hitPoints = 100;
 	_energyPoints = 100;
@@ -22,15 +23,17 @@ FragTrap::FragTrap(std::string name) : ClapTrap(name) {
 	std::cout << "FragTrap [" << _name << "]: Uh, hey, so, umm, hi. I mean, hello. Uh, how do I say this? Hello hello!" << std::endl;
 }
 
-FragTrap::FragTrap(const FragTrap &other) {
-	*this = other;
+// copy constructor
+FragTrap::FragTrap(const FragTrap &other) : ClapTrap(other) {
 	std::cout << "FragTrap copy constructor called!" << std::endl;
 }
 
+// destructor
 FragTrap::~FragTrap(void) {
 	std::cout << "FragTrap [" << _name << "]: Ummm, is it ok if I take a power nap? I won't be gone long, I prooomise... zzzZZZZ" << std::endl;
 }
 
+// assignation operator overload
 FragTrap	&FragTrap::operator=(const FragTrap &other) {
 	if (this != &other) {
 		_name = other._name;
@@ -41,6 +44,7 @@ FragTrap	&FragTrap::operator=(const FragTrap &other) {
 	return *this;
 }
 
+// FragTrap action
 void	FragTrap::highFivesGuys(void) {
 	if (canAct(FRAGTRAP, ALL) == false)
 		return ;

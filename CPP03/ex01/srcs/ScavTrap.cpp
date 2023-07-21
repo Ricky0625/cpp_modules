@@ -12,9 +12,18 @@
 
 #include "ScavTrap.hpp"
 
-
+// default constructor
 ScavTrap::ScavTrap(void) : ClapTrap() {}
 
+/**
+ * @brief Parameter constructor
+ * @attention
+ * Was trying to use initializer list to initialize the hp, ep and ad but
+ * does not work. The reason behind this is because you can't "reinitialize"
+ * the attribute of the parent class. So, if the attribute value is different,
+ * you have to initialize it in the body of the constructor by modifying them
+ * if the derived class has the access to the parent class' attribute.
+*/
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
 	_hitPoints = 100;
 	_energyPoints = 50;
@@ -22,15 +31,22 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
 	std::cout << "ScavTrap [" << _name << "]: Just woke up from a power nap. Let's make some noise!" << std::endl;
 }
 
-ScavTrap::ScavTrap(const ScavTrap &other) {
-	*this = other;
+/**
+ * @brief Copy constructor
+ * @details Calling ClapTrap's copy constructor
+*/
+ScavTrap::ScavTrap(const ScavTrap &other) : ClapTrap(other) {
 	std::cout << "ScavTrap copy constructor called!" << std::endl;
 }
 
+// Destructor
 ScavTrap::~ScavTrap(void) {
 	std::cout << "ScavTrap [" << _name << "]: Initiating power nap. I'll be back, don't touch my buttons while I'm gone." << std::endl;
 }
 
+/**
+ * @brief Assignation operator overload
+*/
 ScavTrap	&ScavTrap::operator=(const ScavTrap &other) {
 	if (this != &other) {
 		_name = other._name;
@@ -41,6 +57,11 @@ ScavTrap	&ScavTrap::operator=(const ScavTrap &other) {
 	return *this;
 }
 
+/**
+ * @overriden
+ * @brief Attack function
+ * @details Same as ClapTrap's attack function but with different message
+*/
 void	ScavTrap::attack(const std::string& target) {
 	if (canAct(SCAVTRAP, ALL) == false)
 		return ;
