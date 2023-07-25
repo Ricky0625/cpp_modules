@@ -190,6 +190,15 @@ The example above demonstrate an abstract that acts as an interface. It contains
 
 ### ex00: Polymorphism
 
+This exercise demonstrates what is subtype polymorphism as well as the importance of virtual destructor in polymorphic classes. The task is simple. Create an Animal class and it will have a member function `makeSound` which is marked as `virtual`. Meaning its derived class can override it to have its own implementation. Then, create a Dog class and a Cat class that inherit from the Animal class. The `makeSound` function in the derived classes will override the base class `makeSound` function. After this, we need to write some test cases to test if the polymorphism works as expected.
+
+To really ensure that we know how this works, we were asked to create another class, WrongAnimal. Then have a derived class called WrongCat to inherit it. The subject didn't specify much about the implementation of these two classes but I decided to have two feature for this class to demonstrate how polymorphism works:
+
+1. The `makeSound` function is not marked as `virtual`.
+2. No virtual destructor.
+
+Based on these two feature, it will make the classes not polymorphic. Then, we can see the difference between polymorphic and non-polymorphic classes. Test cases were created to demonstrate the difference. Based on the test cases, I also learned that in a non-polymorphic class, if you call its method through a pointer of its concrete class type, it will call its implementation. But, if you try to call the method (which is supposed to be overwritten) through a pointer of its base class type, it will call the base class implementation. Interesting.
+
 ### ex01: I don't want to set the world on fire
 
 ### ex02: Abstract class
