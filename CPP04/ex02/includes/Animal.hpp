@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 17:03:37 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/07/26 16:26:31 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/07/26 19:05:26 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 
 /**
  * In this exercise, we are required to make this class not instantiable.
- * An abstract class can be instantiated as long as its constructor(s) are accessible.
+ * Constructor(s) are used to initialize the object. If the class is not instantiable,
+ * it make sense to make the constructor(s) inaccessible.
  * To prevent this, we can make the constructor(s) protected or private.
  * To enforce the rule, assignment operator should also be protected or private.
  * Otherwise it doesn't make sense.
