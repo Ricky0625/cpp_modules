@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 17:03:37 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/07/25 15:24:23 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:11:35 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ class Animal {
         virtual void    makeSound( void ) const;
 
         // getters
-        std::string     getType( void ) const;
+        const std::string&     getType( void ) const;
+        virtual std::string &getIdea(int index) const = 0;
+
+        // setters
+        virtual void setIdea(int index, const std::string& idea) = 0;
 
     protected:
         std::string type;

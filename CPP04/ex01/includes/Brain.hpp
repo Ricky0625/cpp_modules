@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/24 17:03:37 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/07/25 15:24:23 by wricky-t         ###   ########.fr       */
+/*   Created: 2023/07/25 15:34:24 by wricky-t          #+#    #+#             */
+/*   Updated: 2023/07/25 17:45:59 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANIMAL_H
-# define ANIMAL_H
+#ifndef BRAIN_H
+# define BRAIN_H
 
 # include <iostream>
-# include <Color.hpp>
-# include <Test.hpp>
 
-class Animal {
+# define MAX_IDEA 100
+
+class Brain {
     public:
-        Animal( void );
-        virtual ~Animal( void );
-        Animal( const Animal &other );
-        Animal  &operator=( const Animal &other );
+        Brain( void );
+        ~Brain( void );
+        Brain( const Brain &other );
+        Brain	&operator=( const Brain &other );
+        void    setIdea( int index, const std::string& idea );
+        std::string &getIdea(int index) const;
 
-        // virtual function
-        virtual void    makeSound( void ) const;
-
-        // getters
-        std::string     getType( void ) const;
-
-    protected:
-        std::string type;
+    private:
+        std::string *ideas;
 };
 
 #endif

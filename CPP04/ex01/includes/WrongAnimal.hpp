@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   WrongAnimal.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/24 17:03:37 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/07/25 15:24:23 by wricky-t         ###   ########.fr       */
+/*   Created: 2023/07/25 14:14:34 by wricky-t          #+#    #+#             */
+/*   Updated: 2023/07/25 14:16:15 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANIMAL_H
-# define ANIMAL_H
+#ifndef WRONGANIMAL_H
+# define WRONGANIMAL_H
 
 # include <iostream>
-# include <Color.hpp>
-# include <Test.hpp>
 
-class Animal {
+class WrongAnimal {
     public:
-        Animal( void );
-        virtual ~Animal( void );
-        Animal( const Animal &other );
-        Animal  &operator=( const Animal &other );
+        WrongAnimal( void );
+        // NOTE: not setting virtual destructor purposefully to see the difference
+        ~WrongAnimal( void );
+        WrongAnimal( const WrongAnimal &other );
+        WrongAnimal	&operator=( const WrongAnimal &other );
 
-        // virtual function
-        virtual void    makeSound( void ) const;
+        // Not letting this function to be overridden purposefully to see the difference
+        void    makeSound( void ) const;
 
-        // getters
-        std::string     getType( void ) const;
+        std::string    getType( void ) const;
 
     protected:
         std::string type;
