@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+         #
+#    By: wricky-t <wricky-t@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 16:53:33 by wricky-t          #+#    #+#              #
-#    Updated: 2023/07/24 16:59:37 by wricky-t         ###   ########.fr        #
+#    Updated: 2023/07/29 22:07:41 by wricky-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		:= polymorphism
+NAME		:= bureaucrat
 CXX			:= c++
 CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98 -MMD
 

@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:50:57 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/07/29 21:36:58 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/07/29 22:07:46 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <string>
 
 // change this to your program name, if want to test leaks
-# define PROGRAM_NAME "interface"
+# define PROGRAM_NAME "bureaucrat"
 
 // Output test title
 # define TEST_TITLE(x) std::cout << BGREEN << x << RESET << std::endl;
