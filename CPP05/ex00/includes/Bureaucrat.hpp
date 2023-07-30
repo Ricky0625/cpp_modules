@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wricky-t <wricky-t@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:10:35 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/07/29 21:54:03 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/07/30 14:29:26 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@
 # include "Color.hpp"
 # include "Test.hpp"
 
-# define EXCEPTION_TAG BPURPLE "[ Exception ]: " RESET
-
 class Bureaucrat {
     public:
         Bureaucrat( void );
-        Bureaucrat( std::string &name, int grade );
+        Bureaucrat( const std::string &name, int grade );
         ~Bureaucrat( void );
         Bureaucrat( const Bureaucrat &src );
         Bureaucrat	&operator=( const Bureaucrat &other );
@@ -36,7 +34,11 @@ class Bureaucrat {
         // grade related functions
         void    incrementGrade( void );
         void    decrementGrade( void );
-        void    checkGrade( int grade );
+        void    checkGrade( int grade ) const;
+        void    updateGrade( int grade );
+
+        // toString
+        std::string toString( void ) const;
 
         // exceptions
         class GradeTooHighException : public std::exception
