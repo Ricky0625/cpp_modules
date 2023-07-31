@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:24:51 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/07/30 14:04:28 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:26:53 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ const char *Form::GradeTooLowException::what() const throw()
 
 std::string Form::toString() const
 {
-    return BGCYAN + getName() + RESET
+    return  BGBLACK "\t" + getName() + RESET
             + "\n\tGrade to sign:    " + UGREEN + std::to_string(getGradeToSign()) + RESET
             + "\n\tGrade to execute: " + UGREEN + std::to_string(getGradeToExecute()) + RESET
-            + "\n\tSigned?           " + (getIsSigned() ? BGGREEN "TRUE" : BGRED "FALSE") + RESET
+            + "\n\tSigned?           " + (getIsSigned() ? BGREEN "TRUE" : BRED "FALSE") + RESET
             + "\n";
 }
 
