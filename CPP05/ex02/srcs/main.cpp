@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:28:32 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/07/31 15:55:31 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/07/31 17:02:44 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "AForm.hpp"
 #include "PresidentialPardonForm.hpp"
 #include "RobotomyRequestForm.hpp"
-#include "ShruberryCreationForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 #include <iostream>
 
 int main()
@@ -33,17 +33,18 @@ int main()
     {
         TEST_TITLE("Test 1: Shrubbery Creation Form");
         TEST_NL();
-        Form   *scf = new ShruberryCreationForm("mama");
+        Form *scf = new ShrubberyCreationForm("mama");
         std::cout << *scf << std::endl;
-        
+
         TEST_DESC_CONT("Casey signed the form");
         casey.signForm(*scf);
-        std::cout << "\n" << *scf << std::endl;
+        std::cout << "\n"
+                  << *scf << std::endl;
 
         TEST_DESC_CONT("John try to execute the form.");
         raymark.executeForm(*scf);
         TEST_NL();
-        
+
         delete scf;
         TEST_NL();
     }
@@ -51,12 +52,13 @@ int main()
         TEST_AWAIT();
         TEST_TITLE("Test 2: Robotomy Request Form");
         TEST_NL();
-        Form   *rrf = new RobotomyRequestForm("mama");
+        Form *rrf = new RobotomyRequestForm("mama");
         std::cout << *rrf << std::endl;
 
         TEST_DESC_CONT("Casey signed the form");
         casey.signForm(*rrf);
-        std::cout << "\n" << *rrf << std::endl;
+        std::cout << "\n"
+                  << *rrf << std::endl;
 
         TEST_DESC_CONT("John try to execute the form.");
         john.executeForm(*rrf);
@@ -73,18 +75,19 @@ int main()
         TEST_AWAIT();
         TEST_TITLE("Test 3: Presidential Pardon Form");
         TEST_NL();
-        
-        Form   *ppf = new PresidentialPardonForm("mama");
+
+        Form *ppf = new PresidentialPardonForm("mama");
         std::cout << *ppf << std::endl;
-        
+
         TEST_DESC_CONT("Mark signed the form.");
         mark.signForm(*ppf);
-        std::cout << "\n" << *ppf << std::endl;
-        
+        std::cout << "\n"
+                  << *ppf << std::endl;
+
         TEST_DESC_CONT("John try to execute the form.");
         john.executeForm(*ppf); // grade too low
         TEST_NL();
-        
+
         TEST_DESC_CONT("Raymark try to execute the form.");
         raymark.executeForm(*ppf); // grade too low
         TEST_NL();
