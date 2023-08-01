@@ -74,3 +74,5 @@ Another exercise to get familiar with templates. Created a function `iter` that 
 Also created some generic function that can be passed into the `iter` function.
 
 ## Exercise 02: Array
+
+Created a class template `Array` that works like a normal array and can accept any type. During the process, I learned about that you can actually create an empty array. But if you want to access this empty array, it will be undefined behaviour. Also, if you use a pointer to create an empty array, it doesn't mean it's NULL. It's just an empty array, not NULL. NULL means it's pointing to nothing. But an empty array is still pointing to something, just that it's empty. It will have a memory address and you need to free it otherwise it's a memory leak. Empty array cause leaks LMAO. Other than these, this exercise is basically repeating what we did in the previous exercise and all the modules before this.
