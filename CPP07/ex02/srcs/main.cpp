@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:28:32 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/01 15:39:51 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/08/01 15:53:51 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,5 +177,20 @@ int main(void)
         for (int i = 0; i < 5; i++)
             std::cout << "arr[" << i << "]: " << std::setw(5) << arr[i] << " | yooo[" << i << "]: " << std::setw(5) << yooo[i] << std::endl;
         TEST_LEAKS(2);
+    }
+    {
+        TEST_TITLE("Test 3: Size member function");
+        TEST_DESC("Test if size() is working");
+        TEST_NL();
+
+        Array<int> empty;
+        Array<std::string> five(5);
+        Array<double> hundred(100);
+        Array<float> negative(-100);
+
+        std::cout << "size of empty: " << empty.size() << std::endl;
+        std::cout << "size of five: " << five.size() << std::endl;
+        std::cout << "size of hundred: " << hundred.size() << std::endl;
+        std::cout << "size of negative: " << negative.size() << std::endl;
     }
 }
