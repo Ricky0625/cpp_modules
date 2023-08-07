@@ -6,38 +6,19 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 12:01:15 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/04 20:29:33 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/08/07 15:28:22 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCALARCONVERTER_HPP
 # define SCALARCONVERTER_HPP
 
-# include <iostream>
 # include <cstdlib>
 # include <limits>
 # include <iomanip>
 
 # include "Color.hpp"
-
-typedef enum e_type {
-    CHAR,
-    INT,
-    FLOAT,
-    DOUBLE
-} e_type;
-
-typedef enum e_convert_type {
-    E_IMPOSSIBLE,
-    E_NANF,
-    E_NAN,
-    E_PINFF,
-    E_PINF,
-    E_NINFF,
-    E_NINF,
-    E_NON_DISPLAYABLE,
-    E_CONVERTABLE
-} e_convert_type;
+# include "helper.h"
 
 class ScalarConverter {
     public:
@@ -50,7 +31,16 @@ class ScalarConverter {
         ScalarConverter( const ScalarConverter &other );
         // Private assignment operator to prevent assignment
         ScalarConverter &operator=( const ScalarConverter &other );
-        
+
+        // min/max value of each data type
+        static const unsigned char SC_CHAR_MIN;
+        static const unsigned char SC_CHAR_MAX;
+        static const int SC_INT_MIN;
+        static const int SC_INT_MAX;
+        static const float SC_FLOAT_MIN;
+        static const float SC_FLOAT_MAX;
+        static const double SC_DOUBLE_MIN;
+        static const double SC_DOUBLE_MAX;
 };
 
 #endif
