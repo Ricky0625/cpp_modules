@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 15:26:03 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/07 19:15:47 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/08/14 14:36:26 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,8 @@ static bool isChar(const std::string &str, double &value)
     if (!(len == 1 || (len == 3 && (str[0] == '\'' && str[2] == '\''))))
         return false;
 
+    // if length is 3 and can run the code below, it's definitely something like this: 'a'.
+    // in this case, value is str[1]. else, value is str[0].
     value = (len == 3) ? str[1] : str[0];
     return true;
 }
@@ -252,13 +254,16 @@ static bool isInt(const std::string &str, double &value)
     size_t index = 0;
     size_t len = str.length();
 
+    // if the first character is a '+'/'-', skip it.
     if (str[0] == '+' || str[0] == '-')
         index++;
+    // iterate through the string, check if every character is a digit
     for (; index < len; index++)
     {
         if (!isdigit(str[index]))
             return false;
     }
+    // if the loop can iterate through the string, meaning it's convertable, convert it to double.
     value = strtod(str.c_str(), NULL);
     return true;
 }
@@ -275,25 +280,28 @@ static bool isInt(const std::string &str, double &value)
  */
 static bool isFloat(const std::string &str, double &value)
 {
+    // check if the string has a 'f' & '.'. If not, it does not matches the specification of a float.
     if (!(hasOneOccurrence(str, 'f') && hasOneOccurrence(str, '.')))
         return false;
 
     size_t index = 0;
     size_t len = str.length();
 
-    // to prevent something like this: 123f23.
+    // to prevent something like this: 123f23. 'f' character should always at the end of the string.
     if (str.find('f') != len - 1)
         return false;
 
+    // if the first character is a '+'/'-', skip it.
     if (str[0] == '+' || str[0] == '-')
         index++;
 
     // if the code below can run, meaning that there's a 'f' and a '.' in the string
-    // the minimum possible length of the string is 2. It's either '.f' or 'f.'.
+    // the minimum possible length of the string is 2, which if '.f'.
     // another possible combination: '-.f', '+.f'
     if (len == 2 || (len == 3 && index == 1))
         return false;
 
+    // iterate through the string and check if every character is a digit. If encounter a '.' or 'f', skip it (should only detect one)
     for (; index < len; index++)
     {
         if (str[index] == 'f' || str[index] == '.')
@@ -301,6 +309,7 @@ static bool isFloat(const std::string &str, double &value)
         if (!isdigit(str[index]))
             return false;
     }
+    // if the loop can iterate through the string, meaning it's convertable, convert it to double.
     value = strtod(str.c_str(), NULL);
     return true;
 }
@@ -317,21 +326,24 @@ static bool isFloat(const std::string &str, double &value)
  */
 static bool isDouble(const std::string &str, double &value)
 {
+    // check if the string has one occurrence of '.'. double must has one '.'
     if (!(hasOneOccurrence(str, '.')))
         return false;
 
     size_t index = 0;
     size_t len = str.length();
 
+    // if the first character is a '+'/'-', skip it.
     if (str[0] == '+' || str[0] == '-')
         index++;
 
     // if the code below can run, meaning that there's a '.' in the string
     // the minimum possible length of the string is 1, which is '.' (even though this will be treated as CHAR at the beginning)
-    // another possible combination: '-.', '+.'
+    // another possible combination: '-.', '+.' (len == 2 && index == 1)
     if (len == 1 || (len == 2 && index == 1))
         return false;
 
+    // iterate through the string and check if every character is a digit. If encounter a '.' skip it (should only detect one)
     for (; index < len; index++)
     {
         if (str[index] == '.')
@@ -339,6 +351,7 @@ static bool isDouble(const std::string &str, double &value)
         if (!isdigit(str[index]))
             return false;
     }
+    // if the loop can iterate through the string, meaning it's convertable, convert it to double.
     value = strtod(str.c_str(), NULL);
     return true;
 }
