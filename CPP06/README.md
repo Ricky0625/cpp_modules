@@ -20,6 +20,9 @@ The documentation below will introduce the most dangerous cast first, and then t
   - [`static_cast`](#static_cast)
   - [`const_cast`](#const_cast)
   - [Static class](#static-class)
+  - [ex00: Conversion of scalar types](#ex00-conversion-of-scalar-types)
+  - [ex01: Serialization](#ex01-serialization)
+  - [ex02: Identify real type](#ex02-identify-real-type)
 
 ## C-style cast
 
@@ -222,3 +225,51 @@ Here are some of the features of a static class:
 2. Static members only
 3. Namespace-like Organization
 4. Constructor/Destructor (optional, but place them in private if defined)
+
+## ex00: Conversion of scalar types
+
+In this exericise, we need to implement a `static` class ScalarConvertor that has a method `convert` takes as parameter a string representation of a C++ literal in its most common form. This literal must belong to one of the folloing a scalar types:
+
+- `char`
+- `int`
+- `float`
+- `double`
+
+We also need to handle these pseudo literals:
+
+- `+inf` (double)
+- `-inf` (double)
+- `nan` (double)
+- `+inff` (float)
+- `-inff` (float)
+- `nanf` (float)
+
+This is the high-level overview of the algorithm:
+
+1. Assume the string is `CONVERTABLE` into a `char`, `int`, `float`, or `double`.
+2. Check if the given string is one of the pseudo literals.
+   1. If it is, print the corresponding value and exit.
+   2. Else continue.
+3. Check if the given string is truly convertable into a `char`, `int`, `float`, or `double`. This is by checking if the string matches one of the specification of the data type. As long as it matches one of the specification, it is convertable.
+   1. If it is, convert the string into a double value using `strtod`. From there, we can convert it into the other data types (downcasting). The reason we convert it into a double first is because double is the biggest data type here, so we can convert it into the other data types without losing precision.
+   2. Else, print an error message and exit. The given string cannot be converted.
+
+In this exercise, I'm using `static_cast` because it's suitable for numeric conversions, especially between floating-point types.
+
+## ex01: Serialization
+
+This exercise want us to implement a static class Serializer that converts a pointer to `uintptr_t` and converts it back to the original pointer.
+
+`uintptr` stands for **unsigned integer type capable of holding a pointer**.
+
+Based on these two requirements, we can conclude that we need to use `reinterpret_cast` because it's the only cast that can convert a pointer to an integer type and vice versa.
+
+This function is quite straightforward. We just need to implement two function, `serialize` and `deserialize`. Inside the function convert the passing pointer to `uintptr_t` and vice versa.
+
+## ex02: Identify real type
+
+In this exercise, we need to implement a Base class with a virtual destructor and create another 3 class to publicly inherit from Base. (polymporphism)
+
+We need to identify the real type of the object and print the corresponding message based on the pointer to base or reference of base type.
+
+Based on the requirement, it seems like we can use `dynamic_cast` because it's suitable for polymorphic types. Unlike `static_cast`, `dynamic_cast` performs runtime type-checking to ensure the validity of the conversion. So when casting from a pointer, it will return a null pointer if the conversion is not valid. When casting from a reference, it will throw an exception (`std::bad_cast`) if the conversion is not valid.
