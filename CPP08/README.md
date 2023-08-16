@@ -85,6 +85,23 @@ In short, you can think of an iterator as a concept similar to a pointer. But it
 
 ## ex00: Easy find
 
+In this exercise, we need to write a function template `easyfind` that accepts a type `T`. It takes two parameters. The first one has type `T` and the second one is an integer. It's basically repeating what we've done in CPP07.
+
+Throughout the process, I learned a concept called **dependent type name**, which is a type that depeneds on a template parameter. So something like this:
+
+```cpp
+template <typename Container>
+void test (Container cont)
+{
+  typename Container::iterator it;
+  // logic
+}
+```
+
+Here, the variable `it` inside the function is dependent on the template parameter `Container`. `typename` is use to inform the compiler that to treat the variable data type as a type. The `typename` keyword is necessary here because if we didn't explicitly tell the compiler that `Container::iterator` is a type, it would assume that it's a variable. Or a static member function.
+
+Besides that, I learned about how to interact with `vector`, `deque` & `list`. This includes how to create, add, remove, and iterate through them using iterators.
+
 ## ex01: Span
 
 ## ex02: Mutated abomination
