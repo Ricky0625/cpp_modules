@@ -6,11 +6,30 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:53:45 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/17 18:36:01 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/08/19 13:59:25 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
+
+// default constructor
+RPN::RPN() {}
+
+// copy constructor
+RPN::RPN(const RPN &other)
+{
+    (void)other;
+}
+
+// assignment operator (overload)
+RPN    &RPN::operator=(const RPN &other)
+{
+    (void)other;
+    return *this;
+}
+
+// destructor
+RPN::~RPN() {}
 
 /**
  * @brief Check if the current character is one of the operators
@@ -30,26 +49,26 @@ static int charToInt(char ch)
 
 /**
  * Check the syntax of the given string
-*/
+ */
 static void syntaxChecker(const std::string &str, char ch, bool expectingSpace)
 {
     // not allow leading/trailing space
     if (str.find_first_of(' ') == 0 || str.find_last_of(' ') == (str.size() - 1))
-        throw RPNSyntaxError();
+        throw RPN::RPNSyntaxError();
     // if it's neither a digit, a space nor an operator
     if (!(isdigit(ch) || ch == ' ' || isOperator(ch)))
-        throw RPNFoundInvalidCharacter();
-    // if it's space and not expecting space, throw syntax error
+        throw RPN::RPNFoundInvalidCharacter();
+    // if it's space and not expecting space, throw RPN::syntax error
     if (ch == ' ' && !expectingSpace)
-        throw RPNSyntaxError();
+        throw RPN::RPNSyntaxError();
     // if expecting space and current character is not space
     if ((isdigit(ch) || isOperator(ch)) && expectingSpace)
-        throw RPNSyntaxError();
+        throw RPN::RPNSyntaxError();
 }
 
 /**
  * Get top element and pop the top element off
-*/
+ */
 static long getTopAndPop(std::stack<int> &operands)
 {
     long top = operands.top();
@@ -59,11 +78,11 @@ static long getTopAndPop(std::stack<int> &operands)
 
 /**
  * Solve the equation
-*/
+ */
 static void solveEquation(std::stack<int> &operands, char opr)
 {
     if (operands.size() < 2)
-        throw RPNNotEnoughtOperands();
+        throw RPN::RPNNotEnoughtOperands();
 
     long result;
     long leftOperand;
@@ -83,7 +102,7 @@ static void solveEquation(std::stack<int> &operands, char opr)
         rightOperand = getTopAndPop(operands);
         leftOperand = getTopAndPop(operands);
         if (rightOperand == 0)
-            throw RPNUnableToCalculate();
+            throw RPN::RPNUnableToCalculate();
         result = leftOperand / rightOperand; // might need to consider some edge cases here
         break;
     case '*':
@@ -91,14 +110,14 @@ static void solveEquation(std::stack<int> &operands, char opr)
         break;
     }
     if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min())
-        throw RPNReachLimit();
+        throw RPN::RPNReachLimit();
     operands.push(result);
 }
 
 /**
  * Push element to stack if it's a digit
  * Solve equation if encounter an operator
-*/
+ */
 static void pushAndSolve(std::stack<int> &operands, char ch)
 {
     if (isdigit(ch))
@@ -111,50 +130,49 @@ static void pushAndSolve(std::stack<int> &operands, char ch)
  * @brief This is where all the magic happens. Parse the given string as RPN
  *        and calculate the output.
  */
-int RPN(const std::string &str)
+int RPN::rpn(const std::string &str)
 {
     std::stack<int> operands;
-    std::string::const_iterator it;
     bool expectingSpace = false;
 
-    for (it = str.begin(); it != str.end(); it++)
+    for (std::string::const_iterator it = str.begin(); it != str.end(); it++)
     {
         syntaxChecker(str, *it, expectingSpace);
         pushAndSolve(operands, *it);
         expectingSpace = (std::distance(str.begin(), it) % 2 == 0);
     }
     if (operands.size() > 1)
-        throw RPNLeftOverOperand();
+        throw RPN::RPNLeftOverOperand();
     return operands.top();
 }
 
 // Exception
-const char *RPNNotEnoughtOperands::what() const throw()
+const char *RPN::RPNNotEnoughtOperands::what() const throw()
 {
     return NOT_ENOUGH_OPERANDS;
 }
 
-const char *RPNSyntaxError::what() const throw()
+const char *RPN::RPNSyntaxError::what() const throw()
 {
     return SYNTAX_ERROR;
 }
 
-const char *RPNFoundInvalidCharacter::what() const throw()
+const char *RPN::RPNFoundInvalidCharacter::what() const throw()
 {
     return INVALID_CHARACTER;
 }
 
-const char *RPNUnableToCalculate::what() const throw()
+const char *RPN::RPNUnableToCalculate::what() const throw()
 {
     return UNABLE_TO_CALCULATE;
 }
 
-const char *RPNReachLimit::what() const throw()
+const char *RPN::RPNReachLimit::what() const throw()
 {
     return REACH_INT_LIMIT;
 }
 
-const char *RPNLeftOverOperand::what() const throw()
+const char *RPN::RPNLeftOverOperand::what() const throw()
 {
     return OPERAND_LEFT_OVER;
 }

@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:28:32 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/17 17:10:32 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/08/19 13:59:57 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int main(int ac, char **av)
     // RPN
     try
     {
-        std::cout << RPN(str) << std::endl;
+        std::cout << RPN::rpn(str) << std::endl;
     }
-    catch (const RPNSyntaxError &ex)
+    catch (const RPN::RPNSyntaxError &ex)
     {
         std::cout << BRED << ex.what() << "\n" BWHITE RULES RESET << std::endl;
     }
