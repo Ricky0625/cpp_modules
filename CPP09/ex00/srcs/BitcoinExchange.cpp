@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wricky-t <wricky-t@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 14:35:57 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/19 17:11:45 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/08/21 17:22:30 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ static void checkFile(std::ifstream &database, std::ifstream &readFile, const st
     // void open(const char *filename, ios_base::openmode mode = ios_base::in);
     // it already has a default opening mode, so no need to specify will work as well.
     database.open(BTC_DATABASE);
-    readFile.open(file);
+    readFile.open(file.c_str());
     if (!database.is_open())
         throw BitcoinExchange::BTCDatabaseDoesNotExist();
     if (!readFile.is_open())
