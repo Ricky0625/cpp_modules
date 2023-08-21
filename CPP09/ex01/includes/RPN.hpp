@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wricky-t <wricky-t@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:21:43 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/19 13:58:38 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/08/21 17:19:42 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <iostream>
 #include <stack>
 #include <exception>
+#include <limits>
+#include <cstdlib>
 
 #define RULES "RULES:\n<str> should fulfill the following format:\n- numbers that ranges from 0-9\n- acceptable operators are: + - / *\n- between number and operator, they should be seperated by only one space\n- should not have any leading/trailing spaces"
 #define INVALID_USAGE "[ERROR]: Invalid usage! ./RPN <str>"
