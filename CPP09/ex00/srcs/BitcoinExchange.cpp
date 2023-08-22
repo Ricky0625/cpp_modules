@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wricky-t <wricky-t@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 14:35:57 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/21 17:22:30 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:11:15 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ BitcoinExchange    &BitcoinExchange::operator=(const BitcoinExchange &other)
 BitcoinExchange::~BitcoinExchange() {}
 
 // date utils
+// check if the given year is a leap year
 bool isLeapYear(int year)
 {
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
 
+// check if the given year, month and day forms a valid date
 bool isValidDate(int year, int month, int day) {
     if (year < 1 || month < 1 || month > 12 || day < 1)
         return false;
@@ -48,20 +50,26 @@ bool isValidDate(int year, int month, int day) {
 }
 
 // general utils
+// check if a character only appear once in the string
 bool onlyHasOneOccurrence(const std::string &str, char target)
 {
     return (str.find_first_of(target) == str.find_last_of(target));
 }
 
-static void extractDate(const std::string &date, int &year, int &month, int &day)
+// extract the date from a string into year, month and day
+static bool extractDate(const std::string &date, int &year, int &month, int &day)
 {
     std::istringstream dateStream(date);
-    char dash = '-';
+    char dash1, dash2;
 
-    dateStream >> year >> dash >> month >> dash >> day;
+    dateStream >> year >> dash1 >> month >> dash2 >> day;
+    if (dateStream.fail() || dash1 != '-' || dash2 != '-')
+        return false;
+    return true;
 }
 
-time_t  toEpochTime(const std::string &dateStr)
+// convert date string into epoch time
+time_t  strToEpochTime(const std::string &dateStr)
 {
     int year;
     int month;
@@ -75,14 +83,30 @@ time_t  toEpochTime(const std::string &dateStr)
     return std::mktime(&timeInfo);
 }
 
+// convert epoch time (time_t) to string
+std::string epochTimeToStr(time_t epochTime)
+{
+    std::tm *timeInfo = std::localtime(&epochTime);
+
+    char buffer[80];
+    std::strftime(buffer, sizeof(buffer), "%Y-%m-%d", timeInfo);
+    
+    return buffer;
+}
+
 // format utils
+// check if the given date string is a valid date format
 bool isValidDateFormat(const std::string &date)
 {
     int year;
     int month;
     int day;
 
-    extractDate(date, year, month, day);
+    if (!extractDate(date, year, month, day))
+    {
+        std::cout << "Invalid date format [DATABASE]: " BRED << date << RESET << std::endl;
+        throw BitcoinExchange::BTCErrorWhileParsingDatabaseFile();
+    }
     return isValidDate(year, month, day);
 }
 
@@ -172,27 +196,119 @@ static void checkFile(std::ifstream &database, std::ifstream &readFile, const st
         throw BitcoinExchange::BTCErrorWhenOpenFile();
 }
 
-void storeDataToDatabase(const std::string &str, MapType &dataMap)
+static void checkDateValueFormat(const std::string &key, const std::string &value, e_type readType)
+{
+    if (!isValidDateFormat(key))
+    {
+        if (readType == DATABASE)
+            throw BitcoinExchange::BTCErrorWhileParsingDatabaseFile();
+        else if (readType == READFILE)
+            throw BitcoinExchange::BTCInvalidDateFormat();
+    }
+    
+    if (!isValidValueFormat(value))
+    {
+        if (readType == DATABASE)
+            throw BitcoinExchange::BTCErrorWhileParsingDatabaseFile();
+    }
+}
+
+void checkValueRange(float &value)
+{
+    if (value < 0.0f)
+        throw BitcoinExchange::BTCValueTooSmall();
+    if (value > 1000.0f)
+        throw BitcoinExchange::BTCValueTooBig();
+}
+
+/**
+ * Store data from csv file into map (database)
+ * 1. Separate the key (date string) and value (value string)
+ * 2. Check if the date and the value follows the desired format
+ * 3. Convert key to epoch time (time_t)
+ * 4. Convert value into a float value
+ * 5. Create a pair using the converted value
+ * 6. Insert the pair into the database (map)
+*/
+static void storeDataToDatabase(const std::string &str, MapType &dataMap)
 {
     const char delimeter = ',';
     size_t  delimeter_pos = str.find(delimeter);
     std::string key = str.substr(0, delimeter_pos);
     std::string value = str.substr(delimeter_pos + 1, str.size());
-    if (!(isValidDateFormat(key) && isValidValueFormat(value)))
-        throw BitcoinExchange::BTCErrorWhileParsingDatabaseFile();
     
-    time_t keyAsEpochTime = toEpochTime(key);
+    try {
+        checkDateValueFormat(key, value, DATABASE);
+    }
+    catch (const std::exception &ex)
+    {
+        std::cout << ex.what();
+        std::cout << BRED << str << RESET << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    
+    time_t keyAsEpochTime = strToEpochTime(key);
     float valueAsFloat = strtof(value.c_str(), NULL);
     
-    std::pair<time_t, float> keyValuePair;
-    keyValuePair = std::make_pair(keyAsEpochTime, valueAsFloat);
+    std::pair<time_t, float> keyValuePair = std::make_pair(keyAsEpochTime, valueAsFloat);
     dataMap.insert(keyValuePair);
 }
 
 /**
- * Make this function generic
+ * Print out the updated exchange rate
+ * 1. Seperate the given string into key and value
+ * 2. Check their format, if there's an error, return so that it can skip to next record.
+ * 3. Convert key and value into its coresponding type
+ * 4. Check if the value exceed the range
+ * 5. Get the value using lower_bound based on the key
+ *       - lower than any of the key, return begin()
+ *       - greater than any of the key, return end()
+ *       - exact same key, return that record
+ *    NOTE: the return record if not same key is actually record + 1, so to access the "true" lower bound,
+ *          need to get the previous record.
+ * 6. Print out the updated exchange rate, no need to modify the database
 */
-static void getLineFromFile(std::ifstream &file, MapType &dataMap, void (*func)(const std::string &str, MapType &datamap), e_type readType = DATABASE)
+static void updateExchangeRate(const std::string &str, MapType &dataMap)
+{
+    const std::string delimeter = " | ";
+    size_t delimeter_pos = str.find(delimeter);
+    std::string key = str.substr(0, delimeter_pos);
+    std::string value = str.substr(delimeter_pos + delimeter.size(), str.size());
+    
+    try {
+        checkDateValueFormat(key, value, READFILE);
+    }
+    catch (const std::exception &ex)
+    {
+        std::cout << ex.what();
+        std::cout << BRED << key << RESET << std::endl;
+        return;
+    }
+
+    time_t keyAsEpochTime = strToEpochTime(key);
+    float valueAsFloat = strtof(value.c_str(), NULL);
+
+    try {
+        checkValueRange(valueAsFloat);
+    }
+    catch (const std::exception &ex)
+    {
+        std::cout << ex.what();
+        std::cout << BRED << value << RESET << std::endl;
+        return;
+    }
+
+    MapType::iterator record = dataMap.lower_bound(keyAsEpochTime);
+    if (record != dataMap.begin() && record->first != keyAsEpochTime)
+        record = std::prev(record);
+    std::cout << epochTimeToStr(keyAsEpochTime) << " => " << value << " = " << record->second * valueAsFloat << std::endl;
+}
+
+/**
+ * Make this function generic.
+ * A generic function to run when reading the file, so that it can perform an action to each line.
+*/
+static void getLineFromFile(std::ifstream &file, MapType &dataMap, void (*func)(const std::string &str, MapType &datamap), e_type readType = READFILE)
 {
     std::string line;
     
@@ -201,10 +317,14 @@ static void getLineFromFile(std::ifstream &file, MapType &dataMap, void (*func)(
         std::getline(file, line);
     while (std::getline(file, line))
         func(line, dataMap);
-    // close the file after reading
-    file.close();
 }
 
+/**
+ * Bitcoin exchange
+ * 1. Check if database and the given file can be accessed
+ * 2. Read the databse file and store each record into the database (map)
+ * 3. 
+*/
 void BitcoinExchange::bitcoinExchange(const std::string &file)
 {
     std::ifstream database;
@@ -212,11 +332,11 @@ void BitcoinExchange::bitcoinExchange(const std::string &file)
     MapType dataMap;
 
     checkFile(database, readFile, file);
-    getLineFromFile(database, dataMap, storeDataToDatabase);
-    for (MapType::iterator it = dataMap.begin(); it != dataMap.end(); it++)
-    {
-        std::cout << "Key: " << it->first << ", Value: " << it->second << std::endl;
-    }
+    getLineFromFile(database, dataMap, storeDataToDatabase, DATABASE);
+    getLineFromFile(readFile, dataMap, updateExchangeRate);
+
+    database.close();
+    readFile.close();
 }
 
 // Exception
@@ -232,5 +352,20 @@ const char *BitcoinExchange::BTCErrorWhenOpenFile::what() const throw()
 
 const char *BitcoinExchange::BTCErrorWhileParsingDatabaseFile::what() const throw()
 {
-    return "[ERROR]: Failed to parse database data!";
+    return "[ERROR]: Failed to parse database data => ";
+}
+
+const char *BitcoinExchange::BTCInvalidDateFormat::what() const throw()
+{
+    return "[ERROR]: Invalid date format => ";
+}
+
+const char *BitcoinExchange::BTCValueTooBig::what() const throw()
+{
+    return "[ERROR]: Value too big => ";
+}
+
+const char *BitcoinExchange::BTCValueTooSmall::what() const throw()
+{
+    return "[ERROR]: Value too small => ";
 }

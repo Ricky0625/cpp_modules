@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wricky-t <wricky-t@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 14:19:32 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/21 17:22:11 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/08/22 18:01:24 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <ctime>
 # include <utility>
 # include <cstdlib>
+
+# include "Color.hpp"
 
 # define BTC_DATABASE "data.csv"
 
@@ -46,6 +48,18 @@ class BitcoinExchange {
                 const char *what() const throw();
         };
         class BTCErrorWhileParsingDatabaseFile : public std::exception {
+            public:
+                const char *what() const throw();
+        };
+        class BTCInvalidDateFormat : public std::exception {
+            public:
+                const char *what() const throw();
+        };
+        class BTCValueTooSmall : public std::exception {
+            public:
+                const char *what() const throw();
+        };
+        class BTCValueTooBig : public std::exception {
             public:
                 const char *what() const throw();
         };
