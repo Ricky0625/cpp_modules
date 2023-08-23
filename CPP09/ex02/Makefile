@@ -6,11 +6,11 @@
 #    By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 16:53:33 by wricky-t          #+#    #+#              #
-#    Updated: 2023/08/16 20:52:30 by wricky-t         ###   ########.fr        #
+#    Updated: 2023/08/23 15:30:03 by wricky-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		:= btc
+NAME		:= PmergeMe
 CXX			:= c++
 CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98 -MMD
 
