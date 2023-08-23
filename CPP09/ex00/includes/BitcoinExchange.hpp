@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 14:19:32 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/22 18:01:24 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/08/23 14:32:05 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,31 @@ class BitcoinExchange {
             public:
                 const char *what() const throw();
         };
+        class BTCInvalidValueFormat : public std::exception {
+            public:
+                const char *what() const throw();
+        };
+        class BTCNoDateGiven : public std::exception {
+            public:
+                const char *what() const throw(); 
+        };
+        class BTCNoValueGiven : public std::exception {
+            public:
+                const char *what() const throw();  
+        };
         class BTCValueTooSmall : public std::exception {
             public:
                 const char *what() const throw();
         };
         class BTCValueTooBig : public std::exception {
+            public:
+                const char *what() const throw();
+        };
+        class BTCEmptyLine : public std::exception {
+            public:
+                const char *what() const throw();
+        };
+        class BTCFailedToParseLine : public std::exception {
             public:
                 const char *what() const throw();
         };
