@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 14:19:32 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/23 14:32:05 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:33:39 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef const std::map<time_t, float> CMapType;
 class BitcoinExchange {
     public:
         static void    bitcoinExchange(const std::string &file);
+        
+        // exception
         class BTCDatabaseDoesNotExist : public std::exception {
             public:
                 const char *what() const throw();
