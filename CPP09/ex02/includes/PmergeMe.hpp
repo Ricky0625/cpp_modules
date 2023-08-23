@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 15:30:44 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/23 16:52:15 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/08/23 18:23:32 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <vector>
 # include <string>
 # include <iterator>
+# include <iomanip>
+# include <ctime>
+# include <sys/time.h>
 
 # include "Color.hpp"
 

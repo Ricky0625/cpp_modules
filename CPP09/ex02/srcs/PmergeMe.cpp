@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 15:30:40 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/23 17:06:48 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/08/23 18:25:13 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,15 @@ PmergeMe::~PmergeMe() {}
 void showElements(const IntVector &elements)
 {
     for (IntVector::const_iterator it = elements.begin(); it != elements.end(); it++)
-        std::cout << *it << std::endl;
+        std::cout << *it << " ";
+    std::cout << std::endl;
+}
+
+unsigned long long getCurrentTimeInMicroseconds()
+{
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return static_cast<unsigned long long>(tv.tv_sec) * 1000000 + tv.tv_usec;
 }
 
 // Parsing
@@ -81,10 +89,10 @@ static int convertToInt(const std::string &instStr)
 }
 
 /**
- * Parsing
- * - accept only positive integer [DONE]
- * - check INT_MAX [DONE]
- * - can have '+' [DONE]
+ * @brief Parsing
+ * 1. Check if the string is a positive integer string
+ * 2. Check if the value is within range
+ * 3. Create a int vector
 */
 static void parseElements(StrVector &args, IntVector &elements)
 {
@@ -95,6 +103,27 @@ static void parseElements(StrVector &args, IntVector &elements)
     }
 }
 
+/**
+ * @brief The heart of the program. Ford-Johnson Algorithm (Merge-Insertion sort)
+*/
+static void fordJohnsonSort(IntVector &elements)
+{
+    (void)elements;
+}
+
+void showTimeStamp(size_t size, unsigned long long elapsedTime)
+{
+    std::cout << "Time to process a range of " << std::setw(6) << size << " elements with std::[..] : " << elapsedTime << std::endl;
+}
+
+/**
+ * @brief Main function
+ * 1. Parse elements
+ * 2. Show elements (before & after)
+ * 3. Show time to process
+ * 
+ * ./PmergeMe `jot -r 5 1 100000 | tr '\n' ' '`
+*/
 void PmergeMe::mergeMe(StrVector &args)
 {
     IntVector elements;
@@ -102,7 +131,21 @@ void PmergeMe::mergeMe(StrVector &args)
     try
     {
         parseElements(args, elements);
+        std::cout << std::left << std::setw(10) << "Before:";
         showElements(elements);
+        
+        // Record the start time
+        unsigned long long start = getCurrentTimeInMicroseconds();
+        // Sort
+        fordJohnsonSort(elements);
+        // Record the end time
+        unsigned long long end = getCurrentTimeInMicroseconds();
+        
+        unsigned long long elapsedMicroseconds = end - start;
+        
+        std::cout << std::left << std::setw(10) << "After:";
+        showElements(elements);
+        showTimeStamp(elements.size(), elapsedMicroseconds);
     }
     catch (const std::exception &ex)
     {
