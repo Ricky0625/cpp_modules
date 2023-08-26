@@ -16,6 +16,7 @@ Below are the mandatory topics for this module:
     - [An ideal implementation of a copy assignment operator](#an-ideal-implementation-of-a-copy-assignment-operator)
   - [Exercises](#exercises)
     - [ex00: My First Class in Orthodox Canonical Form](#ex00-my-first-class-in-orthodox-canonical-form)
+      - [Breakdown the differences between fixed-point and floating-point numbers](#breakdown-the-differences-between-fixed-point-and-floating-point-numbers)
     - [ex01: Towards a more useful fixed-point number class](#ex01-towards-a-more-useful-fixed-point-number-class)
     - [ex02: Now we're talking](#ex02-now-were-talking)
       - [Overloading comparison operators](#overloading-comparison-operators)
@@ -142,6 +143,22 @@ In this object, `obj1` has its own dynamic resource. When `obj2` is assigned to 
 ### ex00: My First Class in Orthodox Canonical Form
 
 No much to say about this exercise. It is just to pratice the Orthodox Canonical Class Form. Learned about some common practices when comes to implementing the copy constructor and copy assignment operator.
+
+#### Breakdown the differences between fixed-point and floating-point numbers
+
+1. Fixed point
+   
+   Think of fixed point as a way to represent numbers using a fixed number of digits after the decimal point. It's like when you're counting money and you always keep two digits after the decimal point to represent cents. In fixed point, you decide how many digits to use for the whole number part and how many for the fractional part, and you stick to that pattern. In fixed point number, you are basically dealing with integers. The only difference is that you are keeping track of the decimal point. So when you need to use the value, you just divide the number by the number of digits you decided to use for the fractional part.
+
+2. Floating point
+
+    Floating point is more flexible. It's like using scientific notation to represent numbers. You have two parts: the significant digits and the exponent. The significant digits are the digits that are actually used to represent the number. The exponent is used to shift the decimal point. For example, 1.23e2 is the same as 123.0. The computer stores the significant digits and the exponent separately. The number of significant digits is fixed, but the exponent can be changed to shift the decimal point. This allows you to represent a much wider range of numbers than fixed point. However, floating point numbers are not exact. They are approximations.
+
+Main differences:
+
+1. **Precision**: Fixed point has a fixed number of digits for the whole and fractional parts. Floating point has a fixed number of significant digits, but the decimal point can be shifted to represent a wider range of numbers.
+2. **Range**: Fixed point has a limited range because you're stuck with the same number of digits. Floating point has a much wider range since you can move the decimal point to cover a larger range of values.
+3. **Resource Usage**: Fixed point uses less memory and processing power because we're just dealing with integers. Floating point uses more resources due to the need to store the exponent and perform calculations involving fractions.
 
 ### ex01: Towards a more useful fixed-point number class
 
