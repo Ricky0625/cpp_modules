@@ -6,11 +6,17 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 15:30:40 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/23 18:25:13 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/08/28 20:56:27 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
+
+typedef enum e_cont_type
+{
+    VECTOR,
+    DEQUE
+} e_cont_type;
 
 // default constructor
 PmergeMe::PmergeMe() {}
@@ -22,7 +28,7 @@ PmergeMe::PmergeMe(const PmergeMe &other)
 }
 
 // assignment operator (overload)
-PmergeMe    &PmergeMe::operator=(const PmergeMe &other)
+PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 {
     (void)other;
     return *this;
@@ -33,10 +39,10 @@ PmergeMe::~PmergeMe() {}
 
 // utils
 // A util function to show all the elements
-void showElements(const IntVector &elements)
+void showElements(IntVect::iterator start, IntVect::iterator end)
 {
-    for (IntVector::const_iterator it = elements.begin(); it != elements.end(); it++)
-        std::cout << *it << " ";
+    for (; start != end; start++)
+        std::cout << *start << " ";
     std::cout << std::endl;
 }
 
@@ -50,12 +56,12 @@ unsigned long long getCurrentTimeInMicroseconds()
 // Parsing
 /**
  * @brief Check if the given string is a valid positive integer string
- * 
+ *
  * @details
  * A string is consider a valid positive integer string if:
  * 1. Has a '+' a the start of the string (optional)
  * 2. Only consists of digits
-*/
+ */
 static void checkIfPositiveIntegerString(std::string &intStr)
 {
     std::string newStr = intStr;
@@ -73,12 +79,12 @@ static void checkIfPositiveIntegerString(std::string &intStr)
 
 /**
  * @brief Convert the string into an integer
- * 
+ *
  * @details
  * 1. Convert the string into a long value
  * 2. Check if the value exceed 0 OR INT_MAX
  * 3. Return the value as int
-*/
+ */
 static int convertToInt(const std::string &instStr)
 {
     long valueAsLong = strtol(instStr.c_str(), NULL, 10);
@@ -93,10 +99,10 @@ static int convertToInt(const std::string &instStr)
  * 1. Check if the string is a positive integer string
  * 2. Check if the value is within range
  * 3. Create a int vector
-*/
-static void parseElements(StrVector &args, IntVector &elements)
+ */
+static void parseElements(StrVect &args, IntVect &elements)
 {
-    for (StrVector::iterator it = args.begin(); it != args.end(); it++)
+    for (StrVect::iterator it = args.begin(); it != args.end(); it++)
     {
         checkIfPositiveIntegerString(*it);
         elements.push_back(convertToInt(*it));
@@ -105,15 +111,49 @@ static void parseElements(StrVector &args, IntVector &elements)
 
 /**
  * @brief The heart of the program. Ford-Johnson Algorithm (Merge-Insertion sort)
-*/
-static void fordJohnsonSort(IntVector &elements)
+ * 1. Initial pairing (first round matches)
+ *      - Implement the initial pairing of elements and perform comparision to establish an initial ranking.
+ * 2. Continuation ranking (advancing winners)
+ *      - Determine how winners from the previous round will advance to the next round, and implement necessary
+ *        comparisons and ranking updates
+ * 3. Main chain insertion (efficient ranking)
+ *      - Insert additional players into the main chain efficiently. Use binary search to search for the insertion location.
+ */
+static void fordJohnsonSort(GroupIterator<IntVectIte> begin, GroupIterator<IntVectIte> end)
+{
+    // check if there's leftover
+    size_t  size = begin.distance(end);
+    
+    if (size < 2) return;
+
+    bool hasLeftover = size % 2 != 0;
+    GroupIterator<IntVectIte> endIte = hasLeftover ? --end : end;
+    
+    // initial pairing
+    for (GroupIterator<IntVectIte> it = begin; it != endIte; it += 2)
+    {
+        std::cout << "comparing: " << *(it + 1) << " & " << *it << std::endl;
+        if (*(it + 1) < *it)
+            swapRange(it, it + 1);
+    }
+    std::cout << std::endl;
+    
+    // continuation ranking
+    fordJohnsonSort(GroupIterator<IntVectIte>(begin, begin.size() * 2), GroupIterator<IntVectIte>(endIte, endIte.size() * 2));
+
+    // construct main chain, pend chain
+
+    // insertion sort (jacob number, binary search, insert)
+}
+
+static void fordJohnsonSort(IntDeq &elements)
 {
     (void)elements;
 }
 
-void showTimeStamp(size_t size, unsigned long long elapsedTime)
+void showTimeStamp(size_t size, unsigned long long elapsedTime, e_cont_type cont_type)
 {
-    std::cout << "Time to process a range of " << std::setw(6) << size << " elements with std::[..] : " << elapsedTime << std::endl;
+    std::cout << "Time to process a range of " << std::right << std::setw(6) << size << " elements with std::" << std::left << std::setw(6) << (cont_type == VECTOR ? "vector" : "deque") << " : " << elapsedTime << std::endl;
 }
 
 /**
@@ -121,31 +161,48 @@ void showTimeStamp(size_t size, unsigned long long elapsedTime)
  * 1. Parse elements
  * 2. Show elements (before & after)
  * 3. Show time to process
- * 
+ *
  * ./PmergeMe `jot -r 5 1 100000 | tr '\n' ' '`
-*/
-void PmergeMe::mergeMe(StrVector &args)
+ */
+void PmergeMe::mergeMe(StrVect &args)
 {
-    IntVector elements;
+    IntVect elementsVector;
+    IntDeq elementsDeque;
+
+    if (args.size() < 2)
+        throw PmergeMe::PmergeMeNotEnoughElements();
 
     try
     {
-        parseElements(args, elements);
+        parseElements(args, elementsVector);
+        // copy the value of vector into deque
+        std::copy(elementsVector.begin(), elementsVector.end(), std::inserter(elementsDeque, elementsDeque.end()));
+
+        // Display all the elements before sorting
         std::cout << std::left << std::setw(10) << "Before:";
-        showElements(elements);
-        
-        // Record the start time
-        unsigned long long start = getCurrentTimeInMicroseconds();
+        showElements(elementsVector.begin(), elementsVector.end());
+
+        // Record the start time (for vector)
+        unsigned long long startVector = getCurrentTimeInMicroseconds();
         // Sort
-        fordJohnsonSort(elements);
+        fordJohnsonSort(GroupIterator<IntVectIte>(elementsVector.begin(), 1), GroupIterator<IntVectIte>(elementsVector.end(), 1));
         // Record the end time
-        unsigned long long end = getCurrentTimeInMicroseconds();
-        
-        unsigned long long elapsedMicroseconds = end - start;
-        
+        unsigned long long endVector = getCurrentTimeInMicroseconds();
+        unsigned long long elapsedMicrosecondsVector = endVector - startVector;
+
+        // Record the start time (for deque)
+        unsigned long long startDeque = getCurrentTimeInMicroseconds();
+        // Sort
+        fordJohnsonSort(elementsDeque);
+        // Record the end time
+        unsigned long long endDeque = getCurrentTimeInMicroseconds();
+        unsigned long long elapsedMicrosecondsDeque = endDeque - startDeque;
+
+        // Display all the elements after sorting
         std::cout << std::left << std::setw(10) << "After:";
-        showElements(elements);
-        showTimeStamp(elements.size(), elapsedMicroseconds);
+        showElements(elementsVector.begin(), elementsVector.end());
+        showTimeStamp(elementsVector.size(), elapsedMicrosecondsVector, VECTOR);
+        showTimeStamp(elementsDeque.size(), elapsedMicrosecondsDeque, DEQUE);
     }
     catch (const std::exception &ex)
     {
@@ -157,18 +214,21 @@ void PmergeMe::mergeMe(StrVector &args)
 
 const char *PmergeMe::PmergeMeInvalidArgument::what() const throw()
 {
-    std::string msg("[ERROR]: Invalid argument -> " + _args);
-
-    char *msgCStr = new char[msg.size() + 1];
-    std::strcpy(msgCStr, msg.c_str());
-    return msgCStr;
+    static char msg[1024];
+    strcpy(msg, "[ERROR]: Invalid argument -> ");
+    strcat(msg, _args.c_str());
+    return msg;
 }
 
 const char *PmergeMe::PmergeMeValueExceedRange::what() const throw()
 {
-    std::string msg("[ERROR]: Argument exceed range! (0 - INT_MAX) -> " + _args);
+    static char msg[1024];
+    strcpy(msg, "[ERROR]: Argument exceed range! (0 - INT_MAX) -> ");
+    strcat(msg, _args.c_str());
+    return msg;
+}
 
-    char *msgCStr = new char[msg.size() + 1];
-    std::strcpy(msgCStr, msg.c_str());
-    return msgCStr;
+const char *PmergeMe::PmergeMeNotEnoughElements::what() const throw()
+{
+    return "[ERROR]: Not enough elements to compare!";
 }
