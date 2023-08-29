@@ -155,3 +155,21 @@ This exercise is exactly the same as ex01. So, there's no much to discuss here.
 This exercise introduce the problem that comes with multiple inheritance. The problem is called the *Diamond Problem*. The problem occurs when a class inherits from two classes that have the same superclass. This leads to ambiguity when accessing members inherited through both paths.
 
 Besides that, this exercise also introduce us the concept of member hiding or name hiding. This happens when a derived class defines a member with the same name as one of the members in the base class. The derived class member hides/shadows the base class member. Both of them are separate and distinct member. The derived class member can only be accessed directly and the base class member can only be accessed through the scope resolution operator.
+
+In C++, when you have a class hierarchy where a derived class inherits from two or more base classes that share a common ancestor, a situation known as "diamond inheritance" arises. This can lead to ambiguity and confusion when accessing members of the common ancestor through the derived class.
+
+```cpp
+  A
+ / \
+B   C
+ \ /
+  D
+```
+
+Here, classes B and C both inherit from class A, and class D inherits from both B and C. If class A has some members, and you try to access those members through class D, the compiler doesn't know whether you're referring to the members inherited from B or from C.
+
+To resolve the diamond inheritance problem, you can use virtual inheritance. By adding the virtual keyword to the inheritance of the common base class A, you ensure that only one instance of A is shared among the derived classes.
+
+With virtual inheritance, there's only one shared instance of class A among B and C, and class D knows which instance to access. This eliminates ambiguity and ensures that the diamond inheritance problem is resolved.
+
+In summary, diamond inheritance occurs when a class inherits from two classes that share a common ancestor. Virtual inheritance helps solve this problem by ensuring that the common base class is inherited only once, preventing ambiguity and confusion when accessing members through derived classes.
