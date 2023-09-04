@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 15:30:44 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/28 18:42:29 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/09/04 10:39:57 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,16 @@ public:
     {
     public:
         const char *what() const throw();
+    };
+    class PmergeMeDuplicateElement : public std::exception
+    {
+    public:
+        PmergeMeDuplicateElement(const std::string &arg) : _args(arg){};
+        ~PmergeMeDuplicateElement() throw(){};
+        const char *what() const throw();
+
+    private:
+        std::string _args;
     };
 
 private:

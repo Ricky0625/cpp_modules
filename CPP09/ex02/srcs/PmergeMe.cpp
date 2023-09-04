@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 15:30:40 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/28 21:04:34 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/09/04 10:41:04 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,12 @@ void showElements(IntVect::iterator start, IntVect::iterator end)
     std::cout << std::endl;
 }
 
-unsigned long long getCurrentTimeInMicroseconds()
+double getTimeStamp()
 {
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return static_cast<unsigned long long>(tv.tv_sec) * 1000000 + tv.tv_usec;
+    struct timeval  time;
+
+    gettimeofday(&time, NULL);
+    return (time.tv_usec / 1000) + (time.tv_sec * 1000);
 }
 
 // Parsing
@@ -102,10 +103,17 @@ static int convertToInt(const std::string &instStr)
  */
 static void parseElements(StrVect &args, IntVect &elements)
 {
+    int value;
+    IntVect::iterator searchResult;
+
     for (StrVect::iterator it = args.begin(); it != args.end(); it++)
     {
         checkIfPositiveIntegerString(*it);
-        elements.push_back(convertToInt(*it));
+        value = convertToInt(*it);
+        searchResult = std::find(elements.begin(), elements.end(), value);
+        if (searchResult != elements.end())
+            throw PmergeMe::PmergeMeDuplicateElement(*it);
+        elements.push_back(value);
     }
 }
 
@@ -132,7 +140,7 @@ static void fordJohnsonSort(GroupIterator<IntVectIte> begin, GroupIterator<IntVe
     // initial pairing
     for (GroupIterator<IntVectIte> it = begin; it != endIte; it += 2)
     {
-        std::cout << "comparing: " << *(it + 1) << " & " << *it << std::endl;
+        std::cout << "comparing: " << *(it) << " & " << *(it + 1) << std::endl;
         if (*(it + 1) < *it)
             swapRange(it, it + 1);
     }
@@ -142,8 +150,11 @@ static void fordJohnsonSort(GroupIterator<IntVectIte> begin, GroupIterator<IntVe
     fordJohnsonSort(GroupIterator<IntVectIte>(begin, begin.size() * 2), GroupIterator<IntVectIte>(endIte, endIte.size() * 2));
 
     // construct main chain, pend chain
+    std::cout << "Constructing main chain" << std::endl;
+    // first two number can be inserted into the chain, then the 4th, 6th, +2, +2...
+    // the rest should push to pend
 
-    // insertion sort (jacob number, binary search, insert)
+    // insertion sort (jacob number, binary search, insert), manage the pend
 }
 
 static void fordJohnsonSort(IntDeq &elements)
@@ -151,9 +162,9 @@ static void fordJohnsonSort(IntDeq &elements)
     (void)elements;
 }
 
-void showTimeStamp(size_t size, unsigned long long elapsedTime, e_cont_type cont_type)
+void showTimeStamp(size_t size, double elapsedTime, e_cont_type cont_type)
 {
-    std::cout << "Time to process a range of " << std::right << std::setw(6) << size << " elements with std::" << std::left << std::setw(6) << (cont_type == VECTOR ? "vector" : "deque") << " : " << elapsedTime << std::endl;
+    std::cout << "Time to process a range of " << std::right << std::setw(6) << size << " elements with std::" << std::left << std::setw(6) << (cont_type == VECTOR ? "vector" : "deque") << " : " << elapsedTime << "μs" << std::endl;
 }
 
 /**
@@ -183,20 +194,20 @@ void PmergeMe::mergeMe(StrVect &args)
         showElements(elementsVector.begin(), elementsVector.end());
 
         // Record the start time (for vector)
-        unsigned long long startVector = getCurrentTimeInMicroseconds();
+        double startVector = getTimeStamp();
         // Sort
         fordJohnsonSort(GroupIterator<IntVectIte>(elementsVector.begin(), 1), GroupIterator<IntVectIte>(elementsVector.end(), 1));
         // Record the end time
-        unsigned long long endVector = getCurrentTimeInMicroseconds();
-        unsigned long long elapsedMicrosecondsVector = endVector - startVector;
+        double endVector = getTimeStamp();
+        double elapsedMicrosecondsVector = endVector - startVector;
 
         // Record the start time (for deque)
-        unsigned long long startDeque = getCurrentTimeInMicroseconds();
+        double startDeque = getTimeStamp();
         // Sort
         fordJohnsonSort(elementsDeque);
         // Record the end time
-        unsigned long long endDeque = getCurrentTimeInMicroseconds();
-        unsigned long long elapsedMicrosecondsDeque = endDeque - startDeque;
+        double endDeque = getTimeStamp();
+        double elapsedMicrosecondsDeque = endDeque - startDeque;
 
         // Display all the elements after sorting
         std::cout << std::left << std::setw(10) << "After:";
@@ -224,6 +235,14 @@ const char *PmergeMe::PmergeMeValueExceedRange::what() const throw()
 {
     static char msg[1024];
     strcpy(msg, "[ERROR]: Argument exceed range! (0 - INT_MAX) -> ");
+    strcat(msg, _args.c_str());
+    return msg;
+}
+
+const char *PmergeMe::PmergeMeDuplicateElement::what() const throw()
+{
+    static char msg[1024];
+    strcpy(msg, "[ERROR]: Found duplicate element! -> ");
     strcat(msg, _args.c_str());
     return msg;
 }
