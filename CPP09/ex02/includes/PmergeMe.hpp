@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 15:30:44 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/09/04 10:39:57 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:07:22 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 #include <deque>
 #include <string>
 #include <iterator>
 #include <iomanip>
 #include <ctime>
 #include <sys/time.h>
+#include <unistd.h>
 
 #include "GroupIterator.hpp"
 #include "Color.hpp"
@@ -32,6 +34,9 @@ typedef std::vector<int> IntVect;
 typedef std::deque<int> IntDeq;
 typedef IntVect::iterator IntVectIte;
 typedef IntDeq::iterator IntDeqIte;
+typedef std::list<GroupIterator<IntVectIte> > MainChain;
+typedef MainChain::iterator MainChainIte;
+typedef std::vector<MainChainIte> Pend;
 
 class PmergeMe
 {
