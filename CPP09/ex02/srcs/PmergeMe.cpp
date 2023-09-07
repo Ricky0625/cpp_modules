@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 15:30:40 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/09/07 14:09:15 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/09/07 14:15:38 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ void PmergeMe::mergeMe(StrVect &args)
         
         parseElements(args, original);
         parsingEndTime = getTimeStamp();
-        std::cout << "Parsing time: " << parsingEndTime - parsingStartTime << std::endl;
         vectorRunner(original, parsingEndTime - parsingStartTime);
         std::cout << std::endl;
         dequeRunner(original, parsingEndTime - parsingStartTime);
