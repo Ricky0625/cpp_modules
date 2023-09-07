@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 15:30:44 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/09/05 16:07:22 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/09/07 14:01:44 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,12 @@ typedef std::vector<int> IntVect;
 typedef std::deque<int> IntDeq;
 typedef IntVect::iterator IntVectIte;
 typedef IntDeq::iterator IntDeqIte;
-typedef std::list<GroupIterator<IntVectIte> > MainChain;
-typedef MainChain::iterator MainChainIte;
-typedef std::vector<MainChainIte> Pend;
+
+typedef enum e_cont_type
+{
+    VECTOR,
+    DEQUE
+} e_cont_type;
 
 class PmergeMe
 {
@@ -86,5 +89,16 @@ private:
     PmergeMe(const PmergeMe &other);
     PmergeMe &operator=(const PmergeMe &other);
 };
+
+double getTimeStamp(void);
+void showTimeStamp(size_t size, double elapsedTime, e_cont_type cont_type);
+
+void vectorRunner(const IntVect &original, double parsingTime);
+void dequeRunner(const IntVect &original, double parsingTime);
+
+template <typename Container>
+void showElements(Container cont);
+
+#include "PmergeMe.tpp"
 
 #endif
