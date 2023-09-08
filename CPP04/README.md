@@ -201,6 +201,21 @@ Based on these two feature, it will make the classes not polymorphic. Then, we c
 
 ### ex01: I don't want to set the world on fire
 
+In this exercise, we were asked to implement a Brain class. This exercise is mainly about deep copy and shallow copy. The difference between deep copy and shallow copy is that deep copy will create a new copy of the object and copy all the data members to the new object. Shallow copy will just copy the address of the data members to the new object. This means that if you modify the data members in the new object, it will also modify the data members in the original object.
+
+For assignment operator, when implementing it, if there's dynamic memory, we need to delete the original memory first before assigning the new memory to the object. Otherwise, it will cause memory leak. For copy constructor, we need to create a new object and copy all the data members to the new object. Then, return the new object.
+
 ### ex02: Abstract class
 
+This exercise introduce us the concept of an abstract class. A class is consider as an abstract class if it has at least one pure virtual function. An abstract class still can have concrete functions (non-virtual). It cannot be instantiated directly. It can only be used as a base class for other classes. The derived classes must implement the pure virtual functions.
+
+In this exercise, we need to convert our Animal class into an abstract class. Then test if everything works as expected. This includes:
+
+1. The Animal class cannot be instantiated directly.
+2. The derived class can be instantiated through the base class pointer.
+3. Check if the brain works as expected.
+4. Construction and destruction is called in the right order.
+
 ### ex03: Interface & recap
+
+This is the last exercise of this module. In this exercise, the concept of interface is introduced. C++ does not support interface. However, we can create an interface in C++ using some of its mechanism. Interface is just a class with completely pure virtual function. No concrete functions are allowed. Same as abstract classes, it cannot be instantiated directly. It can only be used as a base class for other classes. The derived classes must implement the pure virtual functions.

@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 19:14:13 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/07/29 17:27:50 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/09/08 15:34:28 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include "ICharacter.hpp"
 # include "Test.hpp"
 # include "Color.hpp"
+
+/**
+ * Circular dependencies typically occur when header files include each other in a way
+ * that creates a loop in the inclusion hierarchy. This can lead to compilation errors.
+ * To deal with this, we need to use forward declarations to break circular dependencies.
+*/
 
 // Forward declaration - break circular dependency
 class ICharacter;

@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 15:20:01 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/07/29 17:59:33 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/09/08 15:25:57 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ Character::Character(std::string name) : _name(name)
     // The table is empty at construction
     for (int i = 0; i < MAX_BIN_CAPACITY; i++)
         _dustbin[i] = NULL;
-    showNameTag(_name);
+    // showNameTag(_name);
     // std::cout << "A magical hello to you" << std::endl;
 }
 
@@ -83,7 +83,7 @@ Character::Character(const Character &other)
     for (int i = 0; i < _dustbinSize; i++)
         _dustbin[i] = other._dustbin[i]->clone();
     
-    showNameTag(_name);
+    // showNameTag(_name);
     // std::cout << "Copy constructor called!" << std::endl;
 }
 
@@ -120,7 +120,7 @@ Character    &Character::operator=(const Character &other)
     _name = other._name;
     _inventorySize = other._inventorySize;
     _dustbinSize = other._dustbinSize;
-    showNameTag(_name);
+    // showNameTag(_name);
     // std::cout << "Assignment operator called!" << std::endl;
     return *this;
 }
@@ -129,16 +129,16 @@ Character    &Character::operator=(const Character &other)
 Character::~Character()
 {
     // delete all materia in inventory
-    showNameTag(_name);
-    std::cout << "Cleaning up my inventory..." << std::endl;
+    // showNameTag(_name);
+    // std::cout << "Cleaning up my inventory..." << std::endl;
     for (int i = 0; i < MAX_INVENTORY; i++)
         delete _inventory[i];
     // delete all materia in dustbin
-    showNameTag(_name);
-    std::cout << "Cleaning up my dustbin..." << std::endl;
+    // showNameTag(_name);
+    // std::cout << "Cleaning up my dustbin..." << std::endl;
     for (int i = 0; i < MAX_BIN_CAPACITY; i++)
         delete _dustbin[i];
-    std::cout << BYELLOW << "🧙 [" << _name << "]" << RESET << ": Stay magical, goodbye!" << std::endl;
+    // std::cout << BYELLOW << "🧙 [" << _name << "]" << RESET << ": Stay magical, goodbye!" << std::endl;
 }
 
 // override
@@ -150,7 +150,7 @@ void Character::throwAway(AMateria *m)
 {
     if (_dustbinSize == MAX_BIN_CAPACITY)
     {
-        showNameTag(_name);
+        // showNameTag(_name);
         std::cout << "Oh no. The dustbin is full. Well, I guess I'll throw it to the fire." << std::endl;
         delete m; // even though the subject says `unequip` must NOT delete the materia, but if the dustbin is full, we have no choice but to delete it
         return ;
@@ -208,6 +208,8 @@ void Character::unequip(int idx)
     // throw materia to the dustbin
     throwAway(_inventory[idx]);
     // unequip materia
+    showNameTag(_name);
+    std::cout << "Unequiped materia at slot " << idx << " ." << std::endl;
     _inventory[idx] = NULL;
 }
 

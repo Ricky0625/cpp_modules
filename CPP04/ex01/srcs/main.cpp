@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 11:06:30 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/07/26 15:47:51 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:49:41 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,8 +186,6 @@ int main()
         
         TEST_NL();
         TEST_CONCLUDE("Nothing change. This is because we are using pointer to base class and base class does not have access to derived class' Brain.");
-        TEST_CONCLUDE_CONT("'Then what type of copy is this?' you may ask. Honestly, idk.");
-        TEST_CONCLUDE_CONT("But I can prove that it might be a deep copy by adding something to Animal's assignment operator.");
         TEST_NL();
 
         TEST_LEAKS(3);
