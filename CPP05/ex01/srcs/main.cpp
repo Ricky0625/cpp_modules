@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:28:32 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/07/30 14:28:54 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/11/21 16:19:46 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int main()
         TEST_NL();
     }
     {
+        TEST_AWAIT();
         TEST_TITLE("Test 1: Invalid form - Grade too low");
         TEST_NL();
 
@@ -56,6 +57,7 @@ int main()
         TEST_NL();
     }
     {
+        TEST_AWAIT();
         TEST_TITLE("Test 2: Invalid form - Grade too high");
         TEST_NL();
 
@@ -80,6 +82,7 @@ int main()
         TEST_NL();
     }
     {
+        TEST_AWAIT();
         TEST_TITLE("Test 3: Highest grade");
         TEST_NL();
 
@@ -95,6 +98,7 @@ int main()
         TEST_NL();
     }
     {
+        TEST_AWAIT();
         TEST_TITLE("Test 4: Lowest grade");
         TEST_NL();
 
@@ -110,6 +114,7 @@ int main()
         TEST_NL();
     }
     {
+        TEST_AWAIT();
         TEST_TITLE("Test 5: Sign form - success");
 
         try {
@@ -130,6 +135,7 @@ int main()
         TEST_NL();
     }
     {
+        TEST_AWAIT();
         TEST_TITLE("Test 6: Sign form - Failed (Form has been signed before attempting to sign it)");
         TEST_NL();
 
@@ -152,6 +158,7 @@ int main()
         TEST_NL();
     }
     {
+        TEST_AWAIT();
         TEST_TITLE("Test 7: Sign form - Failed (Grade too low)");
         TEST_NL();
 

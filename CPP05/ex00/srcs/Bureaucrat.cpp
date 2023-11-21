@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:50:59 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/07/30 14:29:33 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/11/21 15:34:49 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,25 @@ Bureaucrat    &Bureaucrat::operator=(const Bureaucrat &other)
 // destructor
 Bureaucrat::~Bureaucrat(void) {}
 
+// get name
 const std::string &Bureaucrat::getName() const
 {
     return _name;
 }
 
+// get grade
 int Bureaucrat::getGrade() const
 {
     return _grade;
 }
 
+// user-defined exception: GradeTooHighException
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
     return RED "[BUREAUCRAT EXCEPTION] GRADE TOO HIGH!" RESET;
 }
 
+// user-defined exception: GradeTooLowException
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
     return RED "[BUREAUCRAT EXCEPTION] GRADE TOO LOW!" RESET;
@@ -67,6 +71,7 @@ void    Bureaucrat::checkGrade(int grade) const
         throw GradeTooLowException();
 }
 
+// update the grade, will perform a check before assign the new grade
 void    Bureaucrat::updateGrade(int grade)
 {
     // will throw an exception if it's too high or too low
@@ -75,12 +80,14 @@ void    Bureaucrat::updateGrade(int grade)
     _grade = grade;
 }
 
+// increment grade. since the highest is 1, meaning to increment grade, you need to decrement the grade
 void    Bureaucrat::incrementGrade()
 {
     int newGrade = _grade - 1;
     updateGrade(newGrade);
 }
 
+// decrement grade. since the lowest is 150, meaning to decrement grade, you need to increment the grade
 void    Bureaucrat::decrementGrade()
 {
     int newGrade = _grade + 1;
