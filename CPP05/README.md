@@ -14,6 +14,7 @@ CPP05 introduces the following concepts:
     - [Throwing exceptions](#throwing-exceptions)
     - [Catching exceptions](#catching-exceptions)
     - [Stack unwinding in C++](#stack-unwinding-in-c)
+      - [Call stack recap](#call-stack-recap)
     - [User-defined exceptions](#user-defined-exceptions)
   - [Ex00: Mommy, when I grow up, I want to be a bureaucrat!](#ex00-mommy-when-i-grow-up-i-want-to-be-a-bureaucrat)
   - [Ex01: Form up, maggots!](#ex01-form-up-maggots)
@@ -84,8 +85,19 @@ int main() {
 
 ### Stack unwinding in C++
 
-**Stack unwinding** is the process of removing function entries from function call stack at run time. The local objects are destroyed in reverse order in which they were constructed. It's generally related to *Exception Handling*. In C++, when an exception occurs, the function call stack is linearly searched for the exception handler, and all the entries before the function with exception handler are removed from the function call stack. If and exception is not handled in the same function (where it is thrown), Stack unwinding will involve.
+**Stack unwinding** is the process of removing function entries from the call stack *during the handling of exceptions*. In C++, when an exception is thrown, the program looks for an appropriate exception handler to handle the exception. If the exception is nout caught within the current function, the stack starts to unwind.
 
+During stack unwinding, the destructors of local objects in each stack frame are caleld as the stack is unwound.
+
+If an appropriate exception handler is found, the stack unwinding stops, and the control is transferred to the handler. If no handler is found, the program may terminate, and an error message will be displayed.
+
+#### Call stack recap
+
+When a function is called, a new frame is added to the call stack. This frame contains information about the function call, including local variables, return addresses (where the execution continues from), and other relevant data. The call stack is a data structure that manages the flow of control in a program, keeping track of the currently active function calls.
+
+If the called function itself calls another function, another stack frame is pushed onto the stack.
+
+When a function completes its execution or encounters a return statement, its stack frame is popped from the stack.
 
 ```cpp
 // CPP Program to demonstrate Stack Unwinding 
@@ -158,6 +170,11 @@ class MyException : public std::exception {
 
 For this exercise, we were asked to create a class called `Bureaucrat`. This class should have a constant name and a grade that ranges from 1 (highest grade) to 150 (lowest grade). Any attempt to instantiate a Bureaucrat using an invalid grade must throw an exception: either a `Bureaucrat::GradeTooHighException` or a `Bureaucrat::GradeTooLowException`. Both are user-defined exceptions.
 
+For my test cases, I'm just testing these:
+
+1. Initialize a bureaucrat with grade that is too low or high. (should throw an exception)
+2. Update grade. Check if the class will throw exception if the grade accidentally exceed the range.
+
 ## Ex01: Form up, maggots!
 
 For this exercise, we need to create another class `Form`. This class should have:
@@ -172,6 +189,6 @@ The Form should follow the same rules that apply to the Bureaucrat.
 
 ## Ex02: No, you need form 28B, not 28C
 
-For ex02, we were asked to create three concrete classes that inherits from the Form class.
+For Ex02, we were asked to create three concrete classes that inherit from the Form class. Each of them will have a different output when being executed.
 
 ## Ex03: At least this beats coffee-making

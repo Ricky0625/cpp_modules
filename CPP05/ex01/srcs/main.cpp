@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:28:32 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/11/21 16:19:46 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:50:41 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int main()
 
         try {
             // gradeToSign too low
+            std::cout << "`gradeToSign` too low" << std::endl;
             Form potion("Form 777-Z: Potion Approval Request", 200, 50);
             std::cout << potion << std::endl;
         } catch (const Form::GradeTooLowException& ex) {
@@ -48,6 +49,7 @@ int main()
 
         try {
             // gradeToExecute too low
+            std::cout << "`gradeToExecute` too low" << std::endl;
             Form timeTravel("Form X-13: Time travel License Application", 42, 500);
             std::cout << timeTravel << std::endl;
         } catch (const Form::GradeTooLowException& ex) {
@@ -63,6 +65,7 @@ int main()
 
         try {
             // gradeToSign too high
+            std::cout << "`gradeToSign` too high" << std::endl;
             Form potion("Form 777-Z: Potion Approval Request", 0, 50);
             std::cout << potion << std::endl;
         } catch (const Form::GradeTooHighException& ex) {
@@ -73,6 +76,7 @@ int main()
 
         try {
             // gradeToExecute too high
+            std::cout << "`gradeToExecute` too high" << std::endl;
             Form timeTravel("Form X-13: Time travel License Application", 42, 0);
             std::cout << timeTravel << std::endl;
         } catch (const Form::GradeTooHighException& ex) {
@@ -119,7 +123,7 @@ int main()
 
         try {
             Bureaucrat waduh(name, 42);
-            Form unicorn("Form Z-2022: Unicorm Adoption Form", 60, 40);
+            Form unicorn("Form Z-2022: Unicorn Adoption Form", 60, 40);
 
             std::cout << "Person In Charge:\n" << waduh << std::endl;
 

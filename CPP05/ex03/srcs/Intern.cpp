@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 16:38:23 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/07/31 17:36:41 by wricky-t         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:08:06 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ Intern::Intern(const Intern &other)
 }
 
 // assignment operator (overload)
-Intern    &Intern::operator=(const Intern &other)
+Intern &Intern::operator=(const Intern &other)
 {
     (void)other;
     return *this;
@@ -35,20 +35,20 @@ static t_form getFormType(const std::string &formName)
 {
     if (formName == "shrubbery creation")
         return SHRUBBERY;
-    
+
     if (formName == "robotomy request")
         return ROBOTOMY;
-    
+
     if (formName == "presidential pardon")
         return PRESIDENTIAL;
-    
+
     return UNKNOWN;
 }
 
-Form    *Intern::makeForm(const std::string &formName, const std::string &target)
+Form *Intern::makeForm(const std::string &formName, const std::string &target)
 {
-    t_form  formType = getFormType(formName);
-    Form    *newForm = NULL;
+    t_form formType = getFormType(formName);
+    Form *newForm = NULL;
 
     switch (formType)
     {
@@ -65,11 +65,12 @@ Form    *Intern::makeForm(const std::string &formName, const std::string &target
         newForm = NULL;
         break;
     }
+
     if (newForm != NULL)
         std::cout << "Intern creates " << newForm->getName() << std::endl;
     else
     {
-        std::cout << "[INTERN]: Dear boss. I can't find the form you requested. :) So here's a unnamed form." << std::endl;
+        std::cout << "[INTERN]: Dear boss. I can't find the form you requested. :) So here's an unnamed form." << std::endl;
         newForm = new Form();
     }
     return newForm;
