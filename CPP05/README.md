@@ -192,3 +192,5 @@ The Form should follow the same rules that apply to the Bureaucrat.
 For Ex02, we were asked to create three concrete classes that inherit from the Form class. Each of them will have a different output when being executed.
 
 ## Ex03: At least this beats coffee-making
+
+For ex03, we were asked to create an Intern class which will helps to create forms. The subject asked us to avoid unreadable and ugly solutions like using if/elseif/else forest.
