@@ -65,8 +65,8 @@ Iterators are a powerful concept used to traverse and manipulate elements of var
 
 C++ provides different types of iterators to cater to different needs:
 
-1. **Input iterators**: Used for reading elements from a container
-2. **Output iterators**: Used for writing elements to a container
+1. **Input iterators**: Weakest and simplest among all the iterators available. Used for reading elements from a container. The value pointed by the iterator is read-only and then the iterator is incremented.
+2. **Output iterators**: Oppostie of input iterators. Used for writing elements to a container or used for assign value.
 3. **Forward iterators**: Allow forward travesal, supporting read and write operations
 4. **Bidirectional iterators**: Allow both forward and backward traversal.
 5. **Random access iterators**: Support random access to elements, enabling efficient indexing and arithmetic operations.
