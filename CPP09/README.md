@@ -13,6 +13,7 @@ CPP09 aims to let us explore STL and try to use different standard containers to
   - [ex01: Reverse Polish Notation](#ex01-reverse-polish-notation)
     - [LIFO](#lifo)
   - [ex02: PmergeMe](#ex02-pmergeme)
+    - [Wadahak is Ford-Johnson algorithm](#wadahak-is-ford-johnson-algorithm)
 
 ## Standard Template Library (STL) revision
 
@@ -118,4 +119,23 @@ Imagine a stack of plates in a cafeteria. When you wash a plate and want to add 
 
 ## ex02: PmergeMe
 
+This exercise required us to create a program that sort positive integers using a merge-insert sort algorithm called, **Ford-Johnson algorithm**. This exercise is a pain in the ass, like, seriously. There's no much information regarding this algorithm and there's a bunch of different implementation of Ford-Johnson algorithm online. Anyway, I settled down with this implementation as a reference to write my Ford-Johnson algorithm in C++. By the way, for this exercise, the subject required us to implement this algorithm with 2 different containers. I end up choosing **vector** and **deque** as they work quite the same in terms of insertion and deletion. So, yea.
 
+Reference: [Ford-Johnson merge-insertion sort](https://codereview.stackexchange.com/questions/116367/ford-johnson-merge-insertion-sort)
+
+### Wadahak is Ford-Johnson algorithm
+
+The Ford Johnson algorithm, also known as merge-insertion sort, is an algorithm designed to **perform as few comparisons as possible to sort a collection**. Ultimately, it's not designed to beat the efficiency and speed of Quicksort or any other sorting algorithm. The special thing about Ford-Johnson is its mechanism to reduce the comparison needed to sort a collection.
+
+Here's the high level overview of how Ford-Johnson algorithm works:
+
+1. Check if there's a leftover. If there is, store that somewhere else.
+2. Pair the elements into n/2 pairs and sort them pairwise recursively. The order should be [Small, Large]. The size of each group doubles in each recursive call.
+3. Populate the main & pend chain.
+   1. Main chain stores the sorted list
+   2. Pend stores iterators indicating where smaller elements should be inserted during binary insertion.
+4. Insert elements from pend chain to main chain using binary insertion.
+
+Very confusing I know...
+
+A simple visualization for the visual learners: [Ford Johnson Algorithm Visualization](https://www.canva.com/design/DAF5BWgcMrw/ca7ImEw_XP8fqWBgQTpX9w/edit?utm_content=DAF5BWgcMrw&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
