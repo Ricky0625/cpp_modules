@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 14:19:32 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/23 15:33:39 by wricky-t         ###   ########.fr       */
+/*   Updated: 2024/01/05 16:07:50 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,15 @@ class BitcoinExchange {
         BitcoinExchange( const BitcoinExchange &other );
         BitcoinExchange	&operator=( const BitcoinExchange &other );
 };
+
+bool isLeapYear(int year);
+bool isValidDate(int year, int month, int day);
+time_t strToEpochTime(const std::string &dateStr);
+std::string epochTimeToStr(time_t epochTime);
+bool isValidDateFormat(const std::string &date);
+bool isIntFormat(const std::string &value);
+bool isFloatFormat(const std::string &value);
+bool isValidValueFormat(const std::string &value);
+bool onlyHasOneOccurrence(const std::string &str, char target);
 
 #endif
