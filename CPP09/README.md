@@ -11,6 +11,7 @@ CPP09 aims to let us explore STL and try to use different standard containers to
   - [ex00: Bitcoin Exchange](#ex00-bitcoin-exchange)
     - [My thought process](#my-thought-process)
   - [ex01: Reverse Polish Notation](#ex01-reverse-polish-notation)
+    - [LIFO](#lifo)
   - [ex02: PmergeMe](#ex02-pmergeme)
 
 ## Standard Template Library (STL) revision
@@ -75,6 +76,45 @@ Now, onto the high level overview of what the program does.
 ```
 
 ## ex01: Reverse Polish Notation
+
+Reverse Polish Notation (RPN), also known as postfix notation, is a mathematical notation in which operators come after their opearands.
+
+Here's a brief explanation of RPN:
+
+1. Operand Placement
+   - In RPN, operands are placed before their corresponding operators.
+2. Evaluation process
+   - To evaluate an RPN expression, you start from the left and move to the right, processing each operand and operator in turn.
+   - When you encounter an operator, you perform the operation on the top operands in the stack (the most recent operands encountered).
+3. Use of stack
+   - RPN expressions are often evaluated using a stack data structure
+   - Operands are pushed onto the stack, and when an operator is encountered, the required number of operands are popped from the stack, the operation is performed, and the result is pused back onto the stack.
+
+```text
+Prefix Notation: + 3 4
+Infix Notation: 3 + 4
+Postfix Notation: 3 4 +
+```
+
+The use of stack in the context of RPN is closely tied to the LIFO property of stacks. The stack serves as a convenient data structure for processing operands and operators in the correct order during the evaluation of RPN expressions. Here's why a stack is beneficial:
+
+1. Natural LIFO structure
+   
+   The LIFO property of a stack makes it a natural fit for processing RPN expressions. In RPN, operands are encountered first and operators later. Using a stack ensures that the most recent operands are readily available for operations. The most recent operands will always on top.
+
+2. Operator-Operand Pairing
+
+    When an operator is encountered, it requires a certain number of operands to perform the operation. The stack conveniently holds the necessary operands, and the LIFO order ensures that the most recent operands are used first.
+
+3. Simplifies expression evaluation
+
+    The operands can be pushed onto the stack, and when an operator is encountered, the required number of operands can be easily popped from the stack for the operation.
+
+### LIFO
+
+LIFO stands for Last In, First Out. It is a principle or order in which items are processed or retrieved based on their entry or arrival order. In a Last In, First Out data structure, the last item that was added is the first one to be removed.
+
+Imagine a stack of plates in a cafeteria. When you wash a plate and want to add it to the stack, you place it on the top. When someone neeeds a plate, they take the one from the top of the stack. If you continue adding and removing plates, the last plates you added (the most recent) will be first one to be used.
 
 ## ex02: PmergeMe
 

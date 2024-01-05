@@ -6,7 +6,7 @@
 /*   By: wricky-t <wricky-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:53:45 by wricky-t          #+#    #+#             */
-/*   Updated: 2023/08/19 13:59:25 by wricky-t         ###   ########.fr       */
+/*   Updated: 2024/01/05 17:30:07 by wricky-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static void solveEquation(std::stack<int> &operands, char opr)
         leftOperand = getTopAndPop(operands);
         if (rightOperand == 0)
             throw RPN::RPNUnableToCalculate();
-        result = leftOperand / rightOperand; // might need to consider some edge cases here
+        result = leftOperand / rightOperand;
         break;
     case '*':
         result = getTopAndPop(operands) * getTopAndPop(operands);
@@ -118,7 +118,7 @@ static void solveEquation(std::stack<int> &operands, char opr)
  * Push element to stack if it's a digit
  * Solve equation if encounter an operator
  */
-static void pushAndSolve(std::stack<int> &operands, char ch)
+static void pushOrSolve(std::stack<int> &operands, char ch)
 {
     if (isdigit(ch))
         operands.push(charToInt(ch));
@@ -133,14 +133,18 @@ static void pushAndSolve(std::stack<int> &operands, char ch)
 int RPN::rpn(const std::string &str)
 {
     std::stack<int> operands;
+    // flag to track whether a space is expected in the input
     bool expectingSpace = false;
 
     for (std::string::const_iterator it = str.begin(); it != str.end(); it++)
     {
         syntaxChecker(str, *it, expectingSpace);
-        pushAndSolve(operands, *it);
+        pushOrSolve(operands, *it);
+        // toggle expectingSpace flag for every second character
         expectingSpace = (std::distance(str.begin(), it) % 2 == 0);
     }
+
+    // if there's more than one operand left on the stack
     if (operands.size() > 1)
         throw RPN::RPNLeftOverOperand();
     return operands.top();
